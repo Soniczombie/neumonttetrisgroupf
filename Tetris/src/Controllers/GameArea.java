@@ -264,7 +264,7 @@ public class GameArea extends Rectangle implements ActionListener, KeyListener {
 			remove(findComponentAt(x, y));
 		}
 		pullPiecesDown(y);
-		Driver.scores.updateScore(Driver.scores.getScore() + 2);
+		Driver.scores.updateScore(Driver.scores.getScore() + (40*Driver.scores.getLevel()));
 		Driver.window.repaint();
 	}
 

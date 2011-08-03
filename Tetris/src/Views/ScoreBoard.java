@@ -12,7 +12,7 @@ public class ScoreBoard extends Container {
 	private static final long serialVersionUID = 1L;
 	private Rectangle frame, background;
 	private JLabel score, level, highestScore;
-	private int intScore, intLevel = 1, intHighestScore;
+	private int intScore, intLevel = 1, intHighestScore, clearedLines = 0;
 	private Driver driver;
 
 	public ScoreBoard(int x, int y, int w, int h, Driver d) {
@@ -44,8 +44,10 @@ public class ScoreBoard extends Container {
 	}
 
 	public void updateScore(int x) {
-		if (x % 30 < intScore % 30) {
+		clearedLines++;
+		if (clearedLines == 10) {
 			updateLevel(getLevel() + 1);
+			clearedLines = 0;
 		}
 		intScore = x;
 		score.setText("Score: " + x);
