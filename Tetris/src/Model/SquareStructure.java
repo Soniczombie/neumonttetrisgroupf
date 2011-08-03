@@ -4,10 +4,9 @@ import java.awt.*;
 
 import Controllers.GameArea;
 
-public class SquareStructure extends Container implements Structure {
+public class SquareStructure extends PositionableStructure {
 	private static final long serialVersionUID = 1L;
 	private Rectangle topLeft, topRight, bottomLeft, bottomRight;
-	private GameArea container;
 
 	public SquareStructure(int x, int y, Container c) {
 		super();

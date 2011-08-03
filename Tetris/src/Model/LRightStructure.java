@@ -4,12 +4,10 @@ import java.awt.*;
 
 import Controllers.GameArea;
 
-public class LRightStructure extends Container implements Structure {
+public class LRightStructure extends PositionableStructure {
 	private static final long serialVersionUID = 1L;
 	private Rectangle top, right, middle, bottom;
 	public final int STRAIGHT = 0, RIGHT = 1, UPSIDEDOWN = 2, LEFT = 3;
-	private int position;
-	private GameArea container;
 
 	public LRightStructure(int x, int y, Container c) {
 		super();
@@ -42,7 +40,7 @@ public class LRightStructure extends Container implements Structure {
 		right.setLocation(2 * (getWidth() / 3), getHeight() / 2);
 		middle.setLocation(getWidth() / 3, 0);
 		bottom.setLocation(0, 0);
-		updatePosition(RIGHT);
+		setPosition(RIGHT);
 		repaint();
 	}
 
@@ -52,7 +50,7 @@ public class LRightStructure extends Container implements Structure {
 		right.setLocation(0, 2 * (getHeight() / 3));
 		middle.setLocation(getWidth() / 2, getHeight() / 3);
 		bottom.setLocation(getWidth() / 2, 0);
-		updatePosition(UPSIDEDOWN);
+		setPosition(UPSIDEDOWN);
 		repaint();
 	}
 
@@ -62,7 +60,7 @@ public class LRightStructure extends Container implements Structure {
 		right.setLocation(0, 0);
 		middle.setLocation(getWidth() / 3, getHeight() / 2);
 		bottom.setLocation(2 * (getWidth() / 3), getHeight() / 2);
-		updatePosition(LEFT);
+		setPosition(LEFT);
 		repaint();
 	}
 
@@ -72,18 +70,10 @@ public class LRightStructure extends Container implements Structure {
 		right.setLocation(getWidth() / 2, 0);
 		middle.setLocation(0, getHeight() / 3);
 		bottom.setLocation(0, 2 * (getHeight() / 3));
-		updatePosition(STRAIGHT);
+		setPosition(STRAIGHT);
 		repaint();
 	}
-
-	private void updatePosition(int x) {
-		position = x;
-	}
-
-	public int getPosition() {
-		return position;
-	}
-
+	
 	public void moveDown() {
 		if (container.collided(this)) {
 			container.removeMe(this);

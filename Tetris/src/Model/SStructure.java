@@ -4,12 +4,10 @@ import java.awt.*;
 
 import Controllers.GameArea;
 
-public class SStructure extends Container implements Structure {
+public class SStructure extends PositionableStructure {
 	private static final long serialVersionUID = 1L;
 	private Rectangle topRight, topMiddle, bottomMiddle, bottomLeft;
 	public final int HORIZONTAL = 0, VERTICAL = 1;
-	private int position;
-	private GameArea container;
 
 	public SStructure(int x, int y, Container c) {
 		super();
@@ -44,7 +42,7 @@ public class SStructure extends Container implements Structure {
 		topMiddle.setLocation(getWidth() / 2, getHeight() / 3);
 		bottomMiddle.setLocation(0, getHeight() / 3);
 		bottomLeft.setLocation(0, 0);
-		updatePosition(VERTICAL);
+		setPosition(VERTICAL);
 		repaint();
 	}
 
@@ -55,16 +53,8 @@ public class SStructure extends Container implements Structure {
 		topMiddle.setLocation(getWidth() / 3, 0);
 		bottomMiddle.setLocation(getWidth() / 3, getHeight() / 2);
 		bottomLeft.setLocation(0, getHeight() / 2);
-		updatePosition(HORIZONTAL);
+		setPosition(HORIZONTAL);
 		repaint();
-	}
-
-	private void updatePosition(int x) {
-		position = x;
-	}
-
-	public int getPosition() {
-		return position;
 	}
 
 	public void moveDown() {
