@@ -5,7 +5,7 @@ import java.awt.*;
 import Controllers.GameArea;
 
 public class LLeftStructure extends PositionableStructure {
-	
+
 	private static final long serialVersionUID = 1L;
 	private Rectangle top, left, middle, bottom;
 	public final int STRAIGHT = 0, RIGHT = 1, UPSIDEDOWN = 2, LEFT = 3;
@@ -115,70 +115,68 @@ public class LLeftStructure extends PositionableStructure {
 
 	public boolean checkCollision(Rectangle background) {
 		LLeftStructure s = this;
+		final Component componentAtBottomRight = container.findComponentAt(
+				s.getX() + (s.getWidth() / 2), s.getY() + s.getHeight());
+		final boolean bottomRightSideIsClear = componentAtBottomRight != background
+				&& componentAtBottomRight != container;
 		if (s.getPosition() == s.STRAIGHT) {
-			if (container.findComponentAt(s.getX(), s.getY()
-					+ (s.getHeight() / 3)) != background
-					&& container.findComponentAt(s.getX(),
-							s.getY() + (s.getHeight() / 3)) != s) {
-				return true;
-			} else if (container.findComponentAt(s.getX() + (s.getWidth() / 2),
-					s.getY() + s.getHeight()) != background
-					&& container.findComponentAt(s.getX() + (s.getWidth() / 2),
-							s.getY() + s.getHeight()) != container) {
-				return true;
-			} else {
-				return false;
-			}
-		} else if (s.getPosition() == s.RIGHT) {
-			if (container.findComponentAt(s.getX(), s.getY() + s.getHeight()) != background
-					&& container.findComponentAt(s.getX(),
-							s.getY() + s.getHeight()) != container) {
-				return true;
-			} else if (container.findComponentAt(s.getX() + (s.getWidth() / 3),
-					s.getY() + s.getHeight()) != background
-					&& container.findComponentAt(s.getX() + (s.getWidth() / 3),
-							s.getY() + s.getHeight()) != container) {
-				return true;
-			} else if (container.findComponentAt(s.getX()
-					+ (2 * (s.getWidth() / 3)), s.getY() + s.getHeight()) != background
-					&& container.findComponentAt(s.getX()
-							+ (2 * (s.getWidth() / 3)),
-							s.getY() + s.getHeight()) != container) {
-				return true;
-			} else {
-				return false;
-			}
-		} else if (s.getPosition() == s.UPSIDEDOWN) {
-			if (container.findComponentAt(s.getX(), s.getY() + s.getHeight()) != background
-					&& container.findComponentAt(s.getX(),
-							s.getY() + s.getHeight()) != container) {
-				return true;
-			} else if (container.findComponentAt(s.getX() + (s.getWidth() / 2),
-					s.getY() + s.getHeight()) != background
-					&& container.findComponentAt(s.getX() + (s.getWidth() / 2),
-							s.getY() + s.getHeight()) != container) {
-				return true;
-			} else {
-				return false;
-			}
+			final Component componentAtStraightBottomLeft = container.findComponentAt(
+					s.getX(), s.getY() + (s.getHeight() / 3));
+			final boolean topLeftSideIsClear = componentAtStraightBottomLeft != background
+					&& componentAtStraightBottomLeft != s;
+			return bottomRightSideIsClear || topLeftSideIsClear;
 		} else {
-			if (container.findComponentAt(s.getX(), s.getY() + s.getHeight()) != background
-					&& container.findComponentAt(s.getX(),
-							s.getY() + s.getHeight()) != container) {
-				return true;
-			} else if (container.findComponentAt(s.getX() + (s.getWidth() / 3),
-					s.getY() + (s.getHeight() / 2)) != background
-					&& container.findComponentAt(s.getX() + (s.getWidth() / 3),
-							s.getY() + (s.getHeight() / 2)) != s) {
-				return true;
-			} else if (container.findComponentAt(s.getX()
-					+ (2 * (s.getWidth() / 3)), s.getY() + (s.getHeight() / 2)) != background
-					&& container.findComponentAt(s.getX()
-							+ (2 * (s.getWidth() / 3)),
-							s.getY() + (s.getHeight() / 2)) != s) {
-				return true;
+			final Component componentRightAtBottomLeft = container.findComponentAt(s.getX(), s.getY() + s.getHeight());
+			final boolean bottomLeftSideIsClear = componentRightAtBottomLeft != background
+					&& componentRightAtBottomLeft != container;
+			if (s.getPosition() == s.RIGHT) {
+				if (bottomLeftSideIsClear) {
+					return true;
+				} else {
+					final boolean rightBottomLeftSideClear = container.findComponentAt(s.getX() + (s.getWidth() / 3),
+							s.getY() + s.getHeight()) != background
+							&& container.findComponentAt(s.getX() + (s.getWidth() / 3),
+									s.getY() + s.getHeight()) != container;
+					if (rightBottomLeftSideClear) {
+						return true;
+					} else {
+						final boolean rightBottomRightClear = container.findComponentAt(s.getX()
+								+ (2 * (s.getWidth() / 3)), s.getY() + s.getHeight()) != background
+								&& container.findComponentAt(s.getX()
+										+ (2 * (s.getWidth() / 3)),
+										s.getY() + s.getHeight()) != container;
+						if (rightBottomRightClear) {
+							return true;
+						} else {
+							return false;
+						}
+					}
+				}
+			} else if (s.getPosition() == s.UPSIDEDOWN) {
+				if (bottomLeftSideIsClear) {
+					return true;
+				} else if (bottomRightSideIsClear) {
+					return true;
+				} else {
+					return false;
+				}
 			} else {
-				return false;
+				if (bottomLeftSideIsClear) {
+					return true;
+				} else if (container.findComponentAt(s.getX() + (s.getWidth() / 3),
+						s.getY() + (s.getHeight() / 2)) != background
+						&& container.findComponentAt(s.getX() + (s.getWidth() / 3),
+								s.getY() + (s.getHeight() / 2)) != s) {
+					return true;
+				} else if (container.findComponentAt(s.getX()
+						+ (2 * (s.getWidth() / 3)), s.getY() + (s.getHeight() / 2)) != background
+						&& container.findComponentAt(s.getX()
+								+ (2 * (s.getWidth() / 3)),
+								s.getY() + (s.getHeight() / 2)) != s) {
+					return true;
+				} else {
+					return false;
+				}
 			}
 		}
 	}
