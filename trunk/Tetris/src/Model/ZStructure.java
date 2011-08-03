@@ -4,12 +4,10 @@ import java.awt.*;
 
 import Controllers.GameArea;
 
-public class ZStructure extends Container implements Structure {
+public class ZStructure extends PositionableStructure {
 	private static final long serialVersionUID = 1L;
 	private Rectangle topLeft, topMiddle, bottomMiddle, bottomRight;
 	public final int HORIZONTAL = 0, VERTICAL = 1;
-	private int position;
-	private GameArea container;
 
 	public ZStructure(int x, int y, Container c) {
 		super();
@@ -43,7 +41,7 @@ public class ZStructure extends Container implements Structure {
 		topMiddle.setLocation(getWidth() / 2, getHeight() / 3);
 		bottomMiddle.setLocation(0, getHeight() / 3);
 		bottomRight.setLocation(0, 2 * (getHeight() / 3));
-		updatePosition(VERTICAL);
+		setPosition(VERTICAL);
 		repaint();
 	}
 
@@ -54,16 +52,8 @@ public class ZStructure extends Container implements Structure {
 		topMiddle.setLocation(getWidth() / 3, 0);
 		bottomMiddle.setLocation(getWidth() / 3, getHeight() / 2);
 		bottomRight.setLocation(2 * (getWidth() / 3), getHeight() / 2);
-		updatePosition(HORIZONTAL);
+		setPosition(HORIZONTAL);
 		repaint();
-	}
-
-	private void updatePosition(int x) {
-		position = x;
-	}
-
-	public int getPosition() {
-		return position;
 	}
 
 	public void moveDown() {

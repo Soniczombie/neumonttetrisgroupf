@@ -1,6 +1,7 @@
 package Model;
 
 public interface Structure {
+	
 	public void turn();
 
 	public void moveDown();

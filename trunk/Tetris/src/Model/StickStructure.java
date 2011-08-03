@@ -4,12 +4,10 @@ import java.awt.*;
 
 import Controllers.GameArea;
 
-public class StickStructure extends Container implements Structure {
+public class StickStructure extends PositionableStructure {
 	private static final long serialVersionUID = 1L;
 	private Rectangle first, second, third, fourth;
 	public final int VERTICAL = 0, HORIZONTAL = 1;
-	private int position;
-	private GameArea container;
 
 	public StickStructure(int x, int y, Container c) {
 		super();
@@ -42,7 +40,7 @@ public class StickStructure extends Container implements Structure {
 		second.setLocation(getWidth() / 4, 0);
 		third.setLocation(2 * (getWidth() / 4), 0);
 		fourth.setLocation(3 * (getWidth() / 4), 0);
-		updatePosition(HORIZONTAL);
+		setPosition(HORIZONTAL);
 		repaint();
 	}
 
@@ -52,16 +50,8 @@ public class StickStructure extends Container implements Structure {
 		second.setLocation(0, getHeight() / 4);
 		third.setLocation(0, 2 * (getHeight() / 4));
 		fourth.setLocation(0, 3 * (getHeight() / 4));
-		updatePosition(VERTICAL);
+		setPosition(VERTICAL);
 		repaint();
-	}
-
-	private void updatePosition(int x) {
-		position = x;
-	}
-
-	public int getPosition() {
-		return position;
 	}
 
 	public void moveDown() {
