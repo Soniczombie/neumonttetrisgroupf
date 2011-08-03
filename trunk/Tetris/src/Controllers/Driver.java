@@ -2,15 +2,18 @@ package Controllers;
 
 import javax.swing.*;
 
+import Views.MainMenu;
 import Views.ScoreBoard;
 
 public class Driver {
 	public static JFrame window;
 	private static GameArea gameArea;
 	public static ScoreBoard scores;
+	public MainMenu mainMenu;
 
 	public Driver() {
 		createWindow();
+		mainMenu = new MainMenu();
 		scores = new ScoreBoard(450, 0, 150, 100, this);
 		gameArea = new GameArea(0, 0, 600, 1045);
 		window.addKeyListener(gameArea);
