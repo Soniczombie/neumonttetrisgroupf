@@ -34,6 +34,7 @@ public class GameArea extends Rectangle implements ActionListener, KeyListener {
 	private int rowsRemoved;
 	private Rectangle effect;
 	private Color levelColor;
+	private boolean pieceDropped = false;
 
 	public GameArea(int x, int y, int w, int h) {
 		super(x, y, w, h);
@@ -95,6 +96,7 @@ public class GameArea extends Rectangle implements ActionListener, KeyListener {
 			if(rowsRemoved > 0)
 				CalculateScore();
 		}
+		pieceDropped = true;
 	}
 
 	private boolean gameOver(Container structure) {
@@ -211,7 +213,9 @@ public class GameArea extends Rectangle implements ActionListener, KeyListener {
 				structure.moveDown();
 			} else if (k.getKeyCode() == 39) {
 				structure.moveRight();
-			} else {
+			} else if (k.getKeyCode() == KeyEvent.VK_SPACE) {
+				DropPiece();
+			}else {
 				structure.turn();
 			}
 			Driver.window.repaint();
@@ -226,6 +230,15 @@ public class GameArea extends Rectangle implements ActionListener, KeyListener {
 	@Override
 	public void keyTyped(KeyEvent arg0) {
 
+	}
+	
+	private void DropPiece()
+	{
+		while(!pieceDropped)
+		{
+			structure.moveDown();
+		}
+		pieceDropped = false;
 	}
 
 	private void cutSlacks() {
