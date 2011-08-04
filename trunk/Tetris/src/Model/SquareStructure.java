@@ -4,7 +4,7 @@ import java.awt.*;
 
 import Controllers.GameArea;
 
-public class SquareStructure extends PositionableStructure {
+public class SquareStructure extends Structure {
 	private static final long serialVersionUID = 1L;
 	private Rectangle topLeft, topRight, bottomLeft, bottomRight;
 
@@ -58,15 +58,14 @@ public class SquareStructure extends PositionableStructure {
 	}
 
 	public boolean checkCollision(Rectangle background) {
-		SquareStructure s = this;
-		if (container.findComponentAt(s.getX(), s.getY() + s.getHeight()) != background
+		if (container.findComponentAt(this.getX(), this.getY() + this.getHeight()) != background
 				&& container
-						.findComponentAt(s.getX(), s.getY() + s.getHeight()) != container) {
+						.findComponentAt(this.getX(), this.getY() + this.getHeight()) != container) {
 			return true;
-		} else if (container.findComponentAt(s.getX() + (s.getWidth() / 2),
-				s.getY() + s.getHeight()) != background
-				&& container.findComponentAt(s.getX() + (s.getWidth() / 2),
-						s.getY() + s.getHeight()) != container) {
+		} else if (container.findComponentAt(this.getX() + (this.getWidth() / 2),
+				this.getY() + this.getHeight()) != background
+				&& container.findComponentAt(this.getX() + (this.getWidth() / 2),
+						this.getY() + this.getHeight()) != container) {
 			return true;
 		} else {
 			return false;
@@ -74,28 +73,27 @@ public class SquareStructure extends PositionableStructure {
 	}
 
 	public void reachedBottom() {
-		SquareStructure s = this;
-		container.putRectangleAt(s.getX(), s.getY(), s.getWidth() / 2,
-				s.getHeight() / 2);
-		container.putRectangleAt(s.getX() + (s.getWidth() / 2), s.getY(),
-				s.getWidth() / 2, s.getHeight() / 2);
-		container.putRectangleAt(s.getX(), s.getY() + (s.getHeight() / 2),
-				s.getWidth() / 2, s.getHeight() / 2);
-		container.putRectangleAt(s.getX() + (s.getWidth() / 2),
-				s.getY() + (s.getHeight() / 2), s.getWidth() / 2,
-				s.getHeight() / 2);
+		super.reachedBottom();
+		container.putRectangleAt(this.getX(), this.getY(), this.getWidth() / 2,
+				this.getHeight() / 2);
+		container.putRectangleAt(this.getX() + (this.getWidth() / 2), this.getY(),
+				this.getWidth() / 2, this.getHeight() / 2);
+		container.putRectangleAt(this.getX(), this.getY() + (this.getHeight() / 2),
+				this.getWidth() / 2, this.getHeight() / 2);
+		container.putRectangleAt(this.getX() + (this.getWidth() / 2),
+				this.getY() + (this.getHeight() / 2), this.getWidth() / 2,
+				this.getHeight() / 2);
 	}
 
 	public boolean canMoveToLeft(Rectangle background) {
-		SquareStructure s = this;
-		if (container.findComponentAt(s.getX() - (s.getWidth() / 2), s.getY()) != background
-				&& container.findComponentAt(s.getX() - (s.getWidth() / 2),
-						s.getY()) != container) {
+		if (container.findComponentAt(this.getX() - (this.getWidth() / 2), this.getY()) != background
+				&& container.findComponentAt(this.getX() - (this.getWidth() / 2),
+						this.getY()) != container) {
 			return false;
-		} else if (container.findComponentAt(s.getX() - (s.getWidth() / 2),
-				s.getY() + (s.getHeight() / 2)) != background
-				&& container.findComponentAt(s.getX() - (s.getWidth() / 2),
-						s.getY() + (s.getHeight() / 2)) != container) {
+		} else if (container.findComponentAt(this.getX() - (this.getWidth() / 2),
+				this.getY() + (this.getHeight() / 2)) != background
+				&& container.findComponentAt(this.getX() - (this.getWidth() / 2),
+						this.getY() + (this.getHeight() / 2)) != container) {
 			return false;
 		} else {
 			return true;
@@ -103,14 +101,13 @@ public class SquareStructure extends PositionableStructure {
 	}
 
 	public boolean canMoveToRight(Rectangle background) {
-		SquareStructure s = this;
-		if (container.findComponentAt(s.getX() + s.getWidth(), s.getY()) != background
-				&& container.findComponentAt(s.getX() + s.getWidth(), s.getY()) != container) {
+		if (container.findComponentAt(this.getX() + this.getWidth(), this.getY()) != background
+				&& container.findComponentAt(this.getX() + this.getWidth(), this.getY()) != container) {
 			return false;
-		} else if (container.findComponentAt(s.getX() + s.getWidth(), s.getY()
-				+ (s.getHeight() / 2)) != background
-				&& container.findComponentAt(s.getX() + s.getWidth(), s.getY()
-						+ (s.getHeight() / 2)) != container) {
+		} else if (container.findComponentAt(this.getX() + this.getWidth(), this.getY()
+				+ (this.getHeight() / 2)) != background
+				&& container.findComponentAt(this.getX() + this.getWidth(), this.getY()
+						+ (this.getHeight() / 2)) != container) {
 			return false;
 		} else {
 			return true;
