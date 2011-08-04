@@ -34,6 +34,7 @@ public class GameArea extends Rectangle implements ActionListener, KeyListener {
 	private int rowsRemoved;
 	private Rectangle effect;
 	private Color levelColor;
+	public Sound s;
 	private boolean pieceDropped = false;
 
 	public GameArea(int x, int y, int w, int h) {
@@ -46,8 +47,10 @@ public class GameArea extends Rectangle implements ActionListener, KeyListener {
 		effect.setBackground(Color.lightGray);
 		setLevelColor();
 		timer.start();
+		playMusic();
+		
+		
 	}
-
 	private void setLevelColor() {
 		int x = Driver.scores.getLevel() % 10;
 		switch (x) {
@@ -197,7 +200,11 @@ public class GameArea extends Rectangle implements ActionListener, KeyListener {
 		}
 		Driver.window.repaint();
 	}
-
+	public void playMusic()
+	{
+		s = new Sound("Tetris-TypeA.wav");
+		s.playSound();
+	}
 	@Override
 	public void keyPressed(KeyEvent k) {
 		if (k.getKeyCode() == 10) {
@@ -215,8 +222,10 @@ public class GameArea extends Rectangle implements ActionListener, KeyListener {
 				structure.moveRight();
 			} else if (k.getKeyCode() == KeyEvent.VK_SPACE) {
 				DropPiece();
-			}else {
+			}else if (k.getKeyCode() == 38) {
 				structure.turn();
+			} else if(k.getKeyCode() == 192){
+				s.changeTrack();
 			}
 			Driver.window.repaint();
 		}
