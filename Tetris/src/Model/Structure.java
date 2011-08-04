@@ -1,23 +1,43 @@
 package Model;
 
-public interface Structure {
+import java.awt.Container;
+
+import Controllers.GameArea;
+
+public abstract class Structure extends Container{
+
+	private static final long serialVersionUID = 1L;
+	private int position;
+	protected GameArea container;
+
+	public void setPosition(int position) {
+		this.position = position;
+	}
+
+	public int getPosition() {
+		return position;
+	}
 	
-	public void turn();
+	
+	public abstract void turn();
 
-	public void moveDown();
+	public abstract void moveDown();
 
-	public void moveRight();
+	public abstract void moveRight();
 
-	public void moveLeft();
+	public abstract void moveLeft();
 
-	public void reachedBottom();
+	public void reachedBottom(){
+		//TODO: put reached bottom sound here
+	}
 
-	public boolean checkCollision(Rectangle background);
+	public abstract boolean checkCollision(Rectangle background);
 
-	public boolean canMoveToLeft(Rectangle background);
+	public abstract boolean canMoveToLeft(Rectangle background);
 
-	public boolean canMoveToRight(Rectangle backgroun);
+	public abstract boolean canMoveToRight(Rectangle backgroun);
 
-	public boolean canTurn(Rectangle background);
+	public abstract boolean canTurn(Rectangle background);
 
+	
 }

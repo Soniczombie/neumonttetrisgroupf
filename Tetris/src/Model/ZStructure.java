@@ -4,7 +4,7 @@ import java.awt.*;
 
 import Controllers.GameArea;
 
-public class ZStructure extends PositionableStructure {
+public class ZStructure extends Structure {
 	private static final long serialVersionUID = 1L;
 	private Rectangle topLeft, topMiddle, bottomMiddle, bottomRight;
 	public final int HORIZONTAL = 0, VERTICAL = 1;
@@ -90,201 +90,240 @@ public class ZStructure extends PositionableStructure {
 	}
 
 	public boolean checkCollision(Rectangle background) {
-		ZStructure s = this;
-		if (s.getPosition() == s.HORIZONTAL) {
-			if (container.findComponentAt(s.getX(), s.getY()
-					+ (s.getHeight() / 2)) != background
-					&& container.findComponentAt(s.getX(),
-							s.getY() + (s.getHeight() / 2)) != s) {
-				return true;
-			} else if (container.findComponentAt(s.getX() + (s.getWidth() / 3),
-					s.getY() + s.getHeight()) != background
-					&& container.findComponentAt(s.getX() + (s.getWidth() / 3),
-							s.getY() + s.getHeight()) != container) {
-				return true;
-			} else if (container.findComponentAt(s.getX()
-					+ (2 * (s.getWidth() / 3)), s.getY() + s.getHeight()) != background
-					&& container.findComponentAt(s.getX()
-							+ (2 * (s.getWidth() / 3)),
-							s.getY() + s.getHeight()) != container) {
-				return true;
-			} else {
-				return false;
-			}
+		if (this.getPosition() == this.HORIZONTAL) {
+			return checkCollisionHorizontal(background);
 		} else {
-			if (container.findComponentAt(s.getX(), s.getY() + s.getHeight()) != background
-					&& container.findComponentAt(s.getX(),
-							s.getY() + s.getHeight()) != container) {
-				return true;
-			} else if (container.findComponentAt(s.getX() + (s.getWidth() / 2),
-					s.getY() + (2 * (s.getHeight() / 3))) != background
-					&& container.findComponentAt(s.getX() + (s.getWidth() / 2),
-							s.getY() + (2 * (s.getHeight() / 3))) != s) {
-				return true;
-			} else {
-				return false;
-			}
+			return checkCollisionVertical(background);
+		}
+	}
+
+	private boolean checkCollisionVertical(Rectangle background) {
+		if (container.findComponentAt(this.getX(), this.getY() + this.getHeight()) != background
+				&& container.findComponentAt(this.getX(),
+						this.getY() + this.getHeight()) != container) {
+			return true;
+		} else if (container.findComponentAt(this.getX() + (this.getWidth() / 2),
+				this.getY() + (2 * (this.getHeight() / 3))) != background
+				&& container.findComponentAt(this.getX() + (this.getWidth() / 2),
+						this.getY() + (2 * (this.getHeight() / 3))) != this) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	private boolean checkCollisionHorizontal(Rectangle background) {
+		if (container.findComponentAt(this.getX(), this.getY()
+				+ (this.getHeight() / 2)) != background
+				&& container.findComponentAt(this.getX(),
+						this.getY() + (this.getHeight() / 2)) != this) {
+			return true;
+		} else if (container.findComponentAt(this.getX() + (this.getWidth() / 3),
+				this.getY() + this.getHeight()) != background
+				&& container.findComponentAt(this.getX() + (this.getWidth() / 3),
+						this.getY() + this.getHeight()) != container) {
+			return true;
+		} else if (container.findComponentAt(this.getX()
+				+ (2 * (this.getWidth() / 3)), this.getY() + this.getHeight()) != background
+				&& container.findComponentAt(this.getX()
+						+ (2 * (this.getWidth() / 3)),
+						this.getY() + this.getHeight()) != container) {
+			return true;
+		} else {
+			return false;
 		}
 	}
 
 	public void reachedBottom() {
-		ZStructure s = this;
-		if (s.getPosition() == s.HORIZONTAL) {
-			container.putRectangleAt(s.getX(), s.getY(), s.getWidth() / 3,
-					s.getHeight() / 2);
-			container.putRectangleAt(s.getX() + (s.getWidth() / 3), s.getY(),
-					s.getWidth() / 3, s.getHeight() / 2);
-			container.putRectangleAt(s.getX() + (s.getWidth() / 3), s.getY()
-					+ (s.getHeight() / 2), s.getWidth() / 3, s.getHeight() / 2);
-			container.putRectangleAt(s.getX() + (2 * (s.getWidth() / 3)),
-					s.getY() + (s.getHeight() / 2), s.getWidth() / 3,
-					s.getHeight() / 2);
+		super.reachedBottom();
+		if (this.getPosition() == this.HORIZONTAL) {
+			reachedBottomHorizontal();
 		} else {
-			container.putRectangleAt(s.getX() + (s.getWidth() / 2), s.getY(),
-					s.getWidth() / 2, s.getHeight() / 3);
-			container.putRectangleAt(s.getX() + (s.getWidth() / 2), s.getY()
-					+ (s.getHeight() / 3), s.getWidth() / 2, s.getHeight() / 3);
-			container.putRectangleAt(s.getX(), s.getY() + (s.getHeight() / 3),
-					s.getWidth() / 2, s.getHeight() / 3);
-			container.putRectangleAt(s.getX(), s.getY()
-					+ (2 * (s.getHeight() / 3)), s.getWidth() / 2,
-					s.getHeight() / 3);
+			reachedBottomVertical();
 		}
 	}
 
+	private void reachedBottomVertical() {
+		container.putRectangleAt(this.getX() + (this.getWidth() / 2), this.getY(),
+				this.getWidth() / 2, this.getHeight() / 3);
+		container.putRectangleAt(this.getX() + (this.getWidth() / 2), this.getY()
+				+ (this.getHeight() / 3), this.getWidth() / 2, this.getHeight() / 3);
+		container.putRectangleAt(this.getX(), this.getY() + (this.getHeight() / 3),
+				this.getWidth() / 2, this.getHeight() / 3);
+		container.putRectangleAt(this.getX(), this.getY()
+				+ (2 * (this.getHeight() / 3)), this.getWidth() / 2,
+				this.getHeight() / 3);
+	}
+
+	private void reachedBottomHorizontal() {
+		container.putRectangleAt(this.getX(), this.getY(), this.getWidth() / 3,
+				this.getHeight() / 2);
+		container.putRectangleAt(this.getX() + (this.getWidth() / 3), this.getY(),
+				this.getWidth() / 3, this.getHeight() / 2);
+		container.putRectangleAt(this.getX() + (this.getWidth() / 3), this.getY()
+				+ (this.getHeight() / 2), this.getWidth() / 3, this.getHeight() / 2);
+		container.putRectangleAt(this.getX() + (2 * (this.getWidth() / 3)),
+				this.getY() + (this.getHeight() / 2), this.getWidth() / 3,
+				this.getHeight() / 2);
+	}
+
 	public boolean canTurn(Rectangle background) {
-		ZStructure s = this;
-		if (s.getPosition() == s.HORIZONTAL) {
-			if (container.findComponentAt(s.getX(), s.getY()
-					+ (s.getHeight() / 2)) != background
-					&& container.findComponentAt(s.getX(),
-							s.getY() + (s.getHeight() / 2)) != s) {
-				return false;
-			} else if (container.findComponentAt(s.getX()
-					+ (2 * (s.getWidth() / 3)), s.getY()) != background
-					&& container.findComponentAt(s.getX()
-							+ (2 * (s.getWidth() / 3)), s.getY()) != s) {
-				return false;
-			} else if (container.findComponentAt(s.getX(),
-					s.getY() + s.getHeight()) != background
-					&& container.findComponentAt(s.getX(),
-							s.getY() + s.getHeight()) != container) {
-				return false;
-			} else if (container.findComponentAt(s.getX() + (s.getWidth() / 2),
-					s.getY() + s.getHeight()) != background
-					&& container.findComponentAt(s.getX() + (s.getWidth() / 2),
-							s.getY() + s.getHeight()) != container) {
-				return false;
-			} else if (container.findComponentAt(s.getX()
-					+ (2 * (s.getWidth() / 3)), s.getY() + s.getHeight()) != background
-					&& container.findComponentAt(s.getX()
-							+ (2 * (s.getWidth() / 3)),
-							s.getY() + s.getHeight()) != container) {
-				return false;
-			} else {
-				return true;
-			}
+		
+		if (this.getPosition() == this.HORIZONTAL) {
+			return canTurnFromHorizontal(background);
 		} else {
-			if (container.findComponentAt(s.getX(), s.getY()) != background
-					&& container.findComponentAt(s.getX(), s.getY()) != s) {
-				return false;
-			} else if (container.findComponentAt(s.getX() + s.getWidth(),
-					s.getY() + (s.getHeight() / 3)) != background
-					&& container.findComponentAt(s.getX() + s.getWidth(),
-							s.getY() + (s.getHeight() / 3)) != container) {
-				return false;
-			} else if (container.findComponentAt(s.getX() + (s.getWidth() / 2),
-					s.getY() + (2 * (s.getHeight() / 3))) != background
-					&& container.findComponentAt(s.getX() + (s.getWidth() / 2),
-							s.getY() + (2 * (s.getHeight() / 3))) != s) {
-				return false;
-			} else if (container.findComponentAt(s.getX() + s.getWidth(),
-					s.getY()) != background
-					&& container.findComponentAt(s.getX() + s.getWidth(),
-							s.getY()) != container) {
-				return false;
-			} else if (container.findComponentAt(s.getX() + s.getWidth(),
-					s.getY() + (2 * (s.getHeight() / 3))) != background
-					&& container.findComponentAt(s.getX() + s.getWidth(),
-							s.getY() + (2 * (s.getHeight() / 3))) != container) {
-				return false;
-			} else {
-				return true;
-			}
+			return canTurnFromVertical(background);
+		}
+	}
+
+	private boolean canTurnFromVertical(Rectangle background) {
+		if (container.findComponentAt(this.getX(), this.getY()) != background
+				&& container.findComponentAt(this.getX(), this.getY()) != this) {
+			return false;
+		} else if (container.findComponentAt(this.getX() + this.getWidth(),
+				this.getY() + (this.getHeight() / 3)) != background
+				&& container.findComponentAt(this.getX() + this.getWidth(),
+						this.getY() + (this.getHeight() / 3)) != container) {
+			return false;
+		} else if (container.findComponentAt(this.getX() + (this.getWidth() / 2),
+				this.getY() + (2 * (this.getHeight() / 3))) != background
+				&& container.findComponentAt(this.getX() + (this.getWidth() / 2),
+						this.getY() + (2 * (this.getHeight() / 3))) != this) {
+			return false;
+		} else if (container.findComponentAt(this.getX() + this.getWidth(),
+				this.getY()) != background
+				&& container.findComponentAt(this.getX() + this.getWidth(),
+						this.getY()) != container) {
+			return false;
+		} else if (container.findComponentAt(this.getX() + this.getWidth(),
+				this.getY() + (2 * (this.getHeight() / 3))) != background
+				&& container.findComponentAt(this.getX() + this.getWidth(),
+						this.getY() + (2 * (this.getHeight() / 3))) != container) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	private boolean canTurnFromHorizontal(Rectangle background) {
+		if (container.findComponentAt(this.getX(), this.getY()
+				+ (this.getHeight() / 2)) != background
+				&& container.findComponentAt(this.getX(),
+						this.getY() + (this.getHeight() / 2)) != this) {
+			return false;
+		} else if (container.findComponentAt(this.getX()
+				+ (2 * (this.getWidth() / 3)), this.getY()) != background
+				&& container.findComponentAt(this.getX()
+						+ (2 * (this.getWidth() / 3)), this.getY()) != this) {
+			return false;
+		} else if (container.findComponentAt(this.getX(),
+				this.getY() + this.getHeight()) != background
+				&& container.findComponentAt(this.getX(),
+						this.getY() + this.getHeight()) != container) {
+			return false;
+		} else if (container.findComponentAt(this.getX() + (this.getWidth() / 2),
+				this.getY() + this.getHeight()) != background
+				&& container.findComponentAt(this.getX() + (this.getWidth() / 2),
+						this.getY() + this.getHeight()) != container) {
+			return false;
+		} else if (container.findComponentAt(this.getX()
+				+ (2 * (this.getWidth() / 3)), this.getY() + this.getHeight()) != background
+				&& container.findComponentAt(this.getX()
+						+ (2 * (this.getWidth() / 3)),
+						this.getY() + this.getHeight()) != container) {
+			return false;
+		} else {
+			return true;
 		}
 	}
 
 	public boolean canMoveToLeft(Rectangle background) {
-		ZStructure s = this;
-		if (s.getPosition() == s.HORIZONTAL) {
-			if (container.findComponentAt(s.getX(), s.getY()
-					+ (s.getHeight() / 2)) != background
-					&& container.findComponentAt(s.getX(),
-							s.getY() + (s.getHeight() / 2)) != s) {
-				return false;
-			} else if (container.findComponentAt(s.getX() - (s.getWidth() / 3),
-					s.getY()) != background
-					&& container.findComponentAt(s.getX() - (s.getWidth() / 3),
-							s.getY()) != container) {
-				return false;
-			} else {
-				return true;
-			}
+		
+		if (this.getPosition() == this.HORIZONTAL) {
+			return canMoveLeftHorizontal(background);
 		} else {
-			if (container.findComponentAt(s.getX(), s.getY()) != background
-					&& container.findComponentAt(s.getX(), s.getY()) != s) {
-				return false;
-			} else if (container.findComponentAt(s.getX() - (s.getWidth() / 2),
-					s.getY() + (s.getHeight() / 3)) != background
-					&& container.findComponentAt(s.getX() - (s.getWidth() / 2),
-							s.getY() + (s.getHeight() / 3)) != container) {
-				return false;
-			} else if (container.findComponentAt(s.getX() - (s.getWidth() / 2),
-					s.getY() + (2 * (s.getHeight() / 3))) != background
-					&& container.findComponentAt(s.getX() - (s.getWidth() / 2),
-							s.getY() + (2 * (s.getHeight() / 3))) != container) {
-				return false;
-			} else {
-				return true;
-			}
+			return canMoveLeftVertical(background);
+		}
+	}
+
+	private boolean canMoveLeftVertical(Rectangle background) {
+		if (container.findComponentAt(this.getX(), this.getY()) != background
+				&& container.findComponentAt(this.getX(), this.getY()) != this) {
+			return false;
+		} else if (container.findComponentAt(this.getX() - (this.getWidth() / 2),
+				this.getY() + (this.getHeight() / 3)) != background
+				&& container.findComponentAt(this.getX() - (this.getWidth() / 2),
+						this.getY() + (this.getHeight() / 3)) != container) {
+			return false;
+		} else if (container.findComponentAt(this.getX() - (this.getWidth() / 2),
+				this.getY() + (2 * (this.getHeight() / 3))) != background
+				&& container.findComponentAt(this.getX() - (this.getWidth() / 2),
+						this.getY() + (2 * (this.getHeight() / 3))) != container) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	private boolean canMoveLeftHorizontal(Rectangle background) {
+		if (container.findComponentAt(this.getX(), this.getY()
+				+ (this.getHeight() / 2)) != background
+				&& container.findComponentAt(this.getX(),
+						this.getY() + (this.getHeight() / 2)) != this) {
+			return false;
+		} else if (container.findComponentAt(this.getX() - (this.getWidth() / 3),
+				this.getY()) != background
+				&& container.findComponentAt(this.getX() - (this.getWidth() / 3),
+						this.getY()) != container) {
+			return false;
+		} else {
+			return true;
 		}
 	}
 
 	public boolean canMoveToRight(Rectangle background) {
-		ZStructure s = this;
-		if (s.getPosition() == s.HORIZONTAL) {
-			if (container.findComponentAt(s.getX() + (2 * (s.getWidth() / 3)),
-					s.getY()) != background
-					&& container.findComponentAt(s.getX()
-							+ (2 * (s.getWidth() / 3)), s.getY()) != s) {
-				return false;
-			} else if (container.findComponentAt(s.getX() + s.getWidth(),
-					s.getY() + (s.getHeight() / 2)) != background
-					&& container.findComponentAt(s.getX() + s.getWidth(),
-							s.getY() + (s.getHeight() / 2)) != container) {
-				return false;
-			} else {
-				return true;
-			}
+		
+		if (this.getPosition() == this.HORIZONTAL) {
+			return canMoveRightHorizontal(background);
 		} else {
-			if (container.findComponentAt(s.getX() + s.getWidth(), s.getY()
-					+ (s.getHeight() / 3)) != background
-					&& container.findComponentAt(s.getX() + s.getWidth(),
-							s.getY() + (s.getHeight() / 3)) != container) {
-				return false;
-			} else if (container.findComponentAt(s.getX() + (s.getWidth() / 2),
-					s.getY() + (2 * (s.getHeight() / 3))) != background
-					&& container.findComponentAt(s.getX() + (s.getWidth() / 2),
-							s.getY() + (2 * (s.getHeight() / 3))) != s) {
-				return false;
-			} else if (container.findComponentAt(s.getX() + s.getWidth(),
-					s.getY()) != background
-					&& container.findComponentAt(s.getX() + s.getWidth(),
-							s.getY()) != container) {
-				return false;
-			} else {
-				return true;
-			}
+			return canMoveRightVertical(background);
+		}
+	}
+
+	private boolean canMoveRightVertical(Rectangle background) {
+		if (container.findComponentAt(this.getX() + this.getWidth(), this.getY()
+				+ (this.getHeight() / 3)) != background
+				&& container.findComponentAt(this.getX() + this.getWidth(),
+						this.getY() + (this.getHeight() / 3)) != container) {
+			return false;
+		} else if (container.findComponentAt(this.getX() + (this.getWidth() / 2),
+				this.getY() + (2 * (this.getHeight() / 3))) != background
+				&& container.findComponentAt(this.getX() + (this.getWidth() / 2),
+						this.getY() + (2 * (this.getHeight() / 3))) != this) {
+			return false;
+		} else if (container.findComponentAt(this.getX() + this.getWidth(),
+				this.getY()) != background
+				&& container.findComponentAt(this.getX() + this.getWidth(),
+						this.getY()) != container) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	private boolean canMoveRightHorizontal(Rectangle background) {
+		if (container.findComponentAt(this.getX() + (2 * (this.getWidth() / 3)),
+				this.getY()) != background
+				&& container.findComponentAt(this.getX()
+						+ (2 * (this.getWidth() / 3)), this.getY()) != this) {
+			return false;
+		} else if (container.findComponentAt(this.getX() + this.getWidth(),
+				this.getY() + (this.getHeight() / 2)) != background
+				&& container.findComponentAt(this.getX() + this.getWidth(),
+						this.getY() + (this.getHeight() / 2)) != container) {
+			return false;
+		} else {
+			return true;
 		}
 	}
 
