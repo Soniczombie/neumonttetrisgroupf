@@ -31,6 +31,7 @@ public class GameArea extends Rectangle implements ActionListener, KeyListener {
 	private Timer effectTimer;
 	private Structure structure;
 	private int rowRemoverYPosition;
+	private int rowsRemoved;
 	private Rectangle effect;
 	private Color levelColor;
 
@@ -91,6 +92,8 @@ public class GameArea extends Rectangle implements ActionListener, KeyListener {
 		if (!gameOver((Container) structure)) {
 			cutSlacks();
 			addNewStructure();
+			if(rowsRemoved > 0)
+				CalculateScore();
 		}
 	}
 
@@ -238,7 +241,33 @@ public class GameArea extends Rectangle implements ActionListener, KeyListener {
 			for (int a = 0; a < spot.length; a++) {
 				spot[a] = false;
 			}
+			
 		}
+	}
+
+	private void CalculateScore() {
+		int score = 0;
+		switch(rowsRemoved)
+		{
+		case 1:
+			score = 40;
+			rowsRemoved = 0;
+			break;
+		case 2:
+			score = 100;
+			rowsRemoved = -1;
+			break;
+		case 3:
+			score = 300;
+			rowsRemoved = -3;
+			break;
+		case 4:
+			score = 1200;
+			rowsRemoved = -6;
+			break;
+		}
+		Driver.scores.updateScore(Driver.scores.getScore() + (score*Driver.scores.getLevel()));
+		//rowsRemoved = 0;
 	}
 
 	private void checkRow(boolean[] spot, int y) {
@@ -250,6 +279,7 @@ public class GameArea extends Rectangle implements ActionListener, KeyListener {
 		}
 		if (remove) {
 			doEffect(y);
+			rowsRemoved++;
 		}
 	}
 
@@ -264,7 +294,6 @@ public class GameArea extends Rectangle implements ActionListener, KeyListener {
 			remove(findComponentAt(x, y));
 		}
 		pullPiecesDown(y);
-		Driver.scores.updateScore(Driver.scores.getScore() + (40*Driver.scores.getLevel()));
 		Driver.window.repaint();
 	}
 
