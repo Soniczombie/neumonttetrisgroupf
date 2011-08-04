@@ -10,6 +10,7 @@ public class Driver {
 	private static GameArea gameArea;
 	public static ScoreBoard scores;
 	public MainMenu mainMenu;
+	public Sound s;
 
 	public Driver() {
 		createWindow();
@@ -22,8 +23,13 @@ public class Driver {
 		window.add(scores, 0);
 		window.setVisible(true);
 		window.repaint();
+		//playMusic();
 	}
-
+	public void playMusic()
+	{
+		s = new Sound("Tetris-TypeA.wav");
+		s.playSound();
+	}
 	public void updatePiecesColors() {
 		gameArea.updatePiecesColors();
 	}
@@ -38,5 +44,6 @@ public class Driver {
 	public static void main(String[] s) {
 		new Driver();
 	}
+
 
 }
