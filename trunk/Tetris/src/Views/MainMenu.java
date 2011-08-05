@@ -27,7 +27,7 @@ public class MainMenu {
 	{
 		//Frame
 		mainMenu = new JFrame();
-		r = new Rectangle(4,4,4,4);
+		r = new Rectangle(4,4,4,4, null);
 		mainMenu.setBounds(500, 500, 150, 300);
 		mainMenu.setBackground(Color.gray);
 		

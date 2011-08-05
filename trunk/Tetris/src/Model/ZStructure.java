@@ -10,20 +10,20 @@ public class ZStructure extends Structure {
 	public final int HORIZONTAL = 0, VERTICAL = 1;
 
 	public ZStructure(int x, int y, Container c) {
-		super();
+		super(Squares.PURPLE.image);
 		setBounds(x, y, c.getWidth() / 4, c.getWidth() / 6);
 		container = (GameArea) c;
 		createRectangles();
 	}
 
 	private void createRectangles() {
-		topLeft = new Rectangle(0, 0, getWidth() / 3, getHeight() / 2);
+		topLeft = new Rectangle(0, 0, getWidth() / 3, getHeight() / 2, image);
 		topMiddle = new Rectangle(getWidth() / 3, 0, getWidth() / 3,
-				getHeight() / 2);
+				getHeight() / 2, image);
 		bottomMiddle = new Rectangle(getWidth() / 3, getHeight() / 2,
-				getWidth() / 3, getHeight() / 2);
+				getWidth() / 3, getHeight() / 2, image);
 		bottomRight = new Rectangle(2 * (getWidth() / 3), getHeight() / 2,
-				getWidth() / 3, getHeight() / 2);
+				getWidth() / 3, getHeight() / 2, image);
 		topLeft.setBackground(Color.yellow);
 		topMiddle.setBackground(Color.yellow);
 		bottomMiddle.setBackground(Color.yellow);

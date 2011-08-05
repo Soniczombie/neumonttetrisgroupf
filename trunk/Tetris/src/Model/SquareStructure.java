@@ -9,20 +9,20 @@ public class SquareStructure extends Structure {
 	private Rectangle topLeft, topRight, bottomLeft, bottomRight;
 
 	public SquareStructure(int x, int y, Container c) {
-		super();
+		super(Squares.GREEN.image);
 		setBounds(x, y, c.getWidth() / 6, c.getWidth() / 6);
 		container = (GameArea) c;
 		createRectangles();
 	}
 
 	private void createRectangles() {
-		topLeft = new Rectangle(0, 0, getWidth() / 2, getHeight() / 2);
+		topLeft = new Rectangle(0, 0, getWidth() / 2, getHeight() / 2,image);
 		topRight = new Rectangle(getWidth() / 2, 0, getWidth() / 2,
-				getHeight() / 2);
+				getHeight() / 2,image);
 		bottomLeft = new Rectangle(0, getHeight() / 2, getWidth() / 2,
-				getHeight() / 2);
+				getHeight() / 2,image);
 		bottomRight = new Rectangle(getWidth() / 2, getHeight() / 2,
-				getWidth() / 2, getHeight() / 2);
+				getWidth() / 2, getHeight() / 2,image);
 		topLeft.setBackground(Color.gray);
 		topRight.setBackground(Color.gray);
 		bottomLeft.setBackground(Color.gray);

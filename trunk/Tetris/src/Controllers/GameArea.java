@@ -9,6 +9,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Random;
 
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
@@ -18,6 +19,7 @@ import Model.LRightStructure;
 import Model.Rectangle;
 import Model.SStructure;
 import Model.SquareStructure;
+import Model.Squares;
 import Model.StickStructure;
 import Model.Structure;
 import Model.TStructure;
@@ -33,57 +35,29 @@ public class GameArea extends Rectangle implements ActionListener, KeyListener {
 	private int rowRemoverYPosition;
 	private int rowsRemoved;
 	private Rectangle effect;
-	private Color levelColor;
+	private Model.Squares levelColor;
 	public Sound s;
 	private boolean pieceDropped = false;
 
 	public GameArea(int x, int y, int w, int h) {
-		super(x, y, w, h);
-		background = new Rectangle(0, 0, w, h);
-		background.setBackground(Color.black);
+		super(x, y, w, h, null);
+		//		this.setBackground(Color.black);
+		background = new Rectangle(0, 0, w, h, null);
+		this.setLayout(null);
 		timer = new Timer(1000, this);
 		effectTimer = new Timer(30, this);
-		effect = new Rectangle(0, rowRemoverYPosition, 0, getWidth() / 12);
+		effect = new Rectangle(0, rowRemoverYPosition, 0, getWidth() / 12, null);
 		effect.setBackground(Color.lightGray);
 		setLevelColor();
 		timer.start();
 		playMusic();
-		
-		
 	}
+
+	private static Squares[] squareTable = {Squares.ORANGE,Squares.YELLOW, Squares.CYAN, Squares.GREEN,
+		Squares.BLUE,Squares.PURPLE,Squares.RED};
 	private void setLevelColor() {
-		int x = Driver.scores.getLevel() % 10;
-		switch (x) {
-		case 0:
-			levelColor = Color.red;
-			break;
-		case 1:
-			levelColor = Color.white;
-			break;
-		case 2:
-			levelColor = Color.pink;
-			break;
-		case 3:
-			levelColor = Color.gray;
-			break;
-		case 4:
-			levelColor = Color.blue;
-			break;
-		case 5:
-			levelColor = Color.green;
-			break;
-		case 6:
-			levelColor = Color.orange;
-			break;
-		case 7:
-			levelColor = Color.cyan;
-			break;
-		case 8:
-			levelColor = Color.yellow;
-			break;
-		default:
-			levelColor = new Color(204, 153, 255);
-		}
+		int x = Driver.scores.getLevel() % 7;
+		levelColor = squareTable[x];
 	}
 
 	public boolean collided(Structure structure) {
@@ -118,10 +92,8 @@ public class GameArea extends Rectangle implements ActionListener, KeyListener {
 	}
 
 	public void putRectangleAt(int x, int y, int w, int h) {
-		Rectangle rectangle = new Rectangle(x, y, w, h);
-		rectangle.setBackground(levelColor);
+		Rectangle rectangle = new Rectangle(x, y, w, h, levelColor.image);
 		add(rectangle, 0);
-		repaint();
 	}
 
 	public void removeMe(Container c) {
@@ -167,7 +139,7 @@ public class GameArea extends Rectangle implements ActionListener, KeyListener {
 
 	public void addNewStructure() {
 		structure = getRandomStructure();
-		add((Component) structure, -1);
+		add(structure, 0);
 	}
 
 	@Override
@@ -240,7 +212,7 @@ public class GameArea extends Rectangle implements ActionListener, KeyListener {
 	public void keyTyped(KeyEvent arg0) {
 
 	}
-	
+
 	private void DropPiece()
 	{
 		while(!pieceDropped)
@@ -263,7 +235,7 @@ public class GameArea extends Rectangle implements ActionListener, KeyListener {
 			for (int a = 0; a < spot.length; a++) {
 				spot[a] = false;
 			}
-			
+
 		}
 	}
 
@@ -332,12 +304,13 @@ public class GameArea extends Rectangle implements ActionListener, KeyListener {
 	}
 
 	public void updatePiecesColors() {
+
 		setLevelColor();
 		for (int y = (getWidth() / 12) * 5; y < getHeight(); y += getWidth() / 12) {
 			for (int x = 0, z = 0; x < getWidth(); x += getWidth() / 12, z++) {
 				if (findComponentAt(x, y) != background
 						&& findComponentAt(x, y) != this) {
-					findComponentAt(x, y).setBackground(levelColor);
+					((Rectangle) findComponentAt(x, y)).setBackgroundImage(levelColor.image);
 				}
 			}
 		}

@@ -10,24 +10,20 @@ public class TStructure extends Structure {
 	public final int STRAIGHT = 0, RIGHT = 1, UPSIDEDOWN = 2, LEFT = 3;
 
 	public TStructure(int x, int y, Container c) {
-		super();
+		super(Squares.RED.image);
 		setBounds(x, y, c.getWidth() / 4, c.getWidth() / 6);
 		container = (GameArea) c;
 		createRectangles();
 	}
 
 	private void createRectangles() {
-		left = new Rectangle(0, 0, getWidth() / 3, getHeight() / 2);
+		left = new Rectangle(0, 0, getWidth() / 3, getHeight() / 2, image);
 		middle = new Rectangle(getWidth() / 3, 0, getWidth() / 3,
-				getHeight() / 2);
+				getHeight() / 2, image);
 		right = new Rectangle(2 * (getWidth() / 3), 0, getWidth() / 3,
-				getHeight() / 2);
+				getHeight() / 2, image);
 		bottom = new Rectangle(getWidth() / 3, getHeight() / 2, getWidth() / 3,
-				getHeight() / 2);
-		left.setBackground(Color.red);
-		right.setBackground(Color.red);
-		middle.setBackground(Color.red);
-		bottom.setBackground(Color.red);
+				getHeight() / 2, image);
 		add(left, 0);
 		add(right, 0);
 		add(middle, 0);

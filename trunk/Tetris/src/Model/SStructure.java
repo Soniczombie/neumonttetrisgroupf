@@ -10,7 +10,7 @@ public class SStructure extends Structure {
 	public final int HORIZONTAL = 0, VERTICAL = 1;
 
 	public SStructure(int x, int y, Container c) {
-		super();
+		super(Squares.ORANGE.image);
 		setBounds(x, y, c.getWidth() / 4, c.getWidth() / 6);
 		container = (GameArea) c;
 		createRectangles();
@@ -18,13 +18,13 @@ public class SStructure extends Structure {
 
 	private void createRectangles() {
 		topRight = new Rectangle(2 * (getWidth() / 3), 0, getWidth() / 3,
-				getHeight() / 2);
+				getHeight() / 2, image);
 		topMiddle = new Rectangle(getWidth() / 3, 0, getWidth() / 3,
-				getHeight() / 2);
+				getHeight() / 2, image);
 		bottomMiddle = new Rectangle(getWidth() / 3, getHeight() / 2,
-				getWidth() / 3, getHeight() / 2);
+				getWidth() / 3, getHeight() / 2, image);
 		bottomLeft = new Rectangle(0, getHeight() / 2, getWidth() / 3,
-				getHeight() / 2);
+				getHeight() / 2, image);
 		topRight.setBackground(Color.pink);
 		topMiddle.setBackground(Color.pink);
 		bottomMiddle.setBackground(Color.pink);
