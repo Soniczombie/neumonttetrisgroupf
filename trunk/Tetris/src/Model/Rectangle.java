@@ -10,6 +10,8 @@ import javax.swing.JComponent;
  * Rectangle Supplier Class Author: David D. Riley Date: April, 2004
  */
 public class Rectangle extends JComponent {
+	
+	private static final long serialVersionUID = 1L;
 	ImageIcon backgroundImage = null;
 
 	public ImageIcon getBackgroundImage() {
@@ -47,16 +49,5 @@ public class Rectangle extends JComponent {
 			paintChildren(g);
 		}
 	}
-
-//	/**
-//	 * post: this method draws a filled Rectangle and the upper left corner is
-//	 * (getX(), getY()) and the rectangle's dimensions are getWidth() and
-//	 * getHeight() and the rectangle's color is getBackground()
-//	 */
-//	public void paint(Graphics g) {
-//			g.setColor(getBackground());
-//			g.fillRect(0, 0, getWidth() - 1, getHeight() - 1);
-//			paintChildren(g);
-//	}
 
 }

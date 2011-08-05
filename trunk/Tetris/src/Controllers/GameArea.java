@@ -41,7 +41,6 @@ public class GameArea extends Rectangle implements ActionListener, KeyListener {
 
 	public GameArea(int x, int y, int w, int h) {
 		super(x, y, w, h, null);
-		//		this.setBackground(Color.black);
 		background = new Rectangle(0, 0, w, h, null);
 		this.setLayout(null);
 		timer = new Timer(1000, this);

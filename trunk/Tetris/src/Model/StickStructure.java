@@ -1,9 +1,6 @@
 package Model;
 
-import java.awt.Color;
 import java.awt.Container;
-
-import javax.swing.ImageIcon;
 
 import Controllers.GameArea;
 
