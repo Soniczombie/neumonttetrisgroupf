@@ -53,7 +53,7 @@ public class GameArea extends Rectangle implements ActionListener, KeyListener {
 		playMusic();
 	}
 
-	private static Squares[] squareTable = {Squares.ORANGE,Squares.YELLOW, Squares.CYAN, Squares.GREEN,
+	private static Squares[] squareTable = {Squares.ORANGE, Squares.YELLOW, Squares.CYAN, Squares.GREEN,
 		Squares.BLUE,Squares.PURPLE,Squares.RED};
 	private void setLevelColor() {
 		int x = Driver.scores.getLevel() % 7;
