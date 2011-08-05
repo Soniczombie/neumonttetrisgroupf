@@ -11,19 +11,19 @@ public class LLeftStructure extends Structure {
 	public final int STRAIGHT = 0, RIGHT = 1, UPSIDEDOWN = 2, LEFT = 3;
 
 	public LLeftStructure(int x, int y, Container c) {
-		super();
+		super(Squares.CYAN.image);
 		setBounds(x, y, c.getWidth() / 6, c.getWidth() / 4);
 		container = (GameArea) c;
 		createRectangles();
 	}
 
 	private void createRectangles() {
-		top = new Rectangle(getWidth() / 2, 0, getWidth() / 2, getHeight() / 3);
-		left = new Rectangle(0, 0, getWidth() / 2, getHeight() / 3);
+		top = new Rectangle(getWidth() / 2, 0, getWidth() / 2, getHeight() / 3, image);
+		left = new Rectangle(0, 0, getWidth() / 2, getHeight() / 3,image);
 		middle = new Rectangle(getWidth() / 2, getHeight() / 3, getWidth() / 2,
-				getHeight() / 3);
+				getHeight() / 3,image);
 		bottom = new Rectangle(getWidth() / 2, 2 * (getHeight() / 3),
-				getWidth() / 2, getHeight() / 3);
+				getWidth() / 2, getHeight() / 3,image);
 		top.setBackground(Color.orange);
 		left.setBackground(Color.orange);
 		middle.setBackground(Color.orange);

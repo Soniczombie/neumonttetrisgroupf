@@ -1,6 +1,9 @@
 package Model;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Container;
+
+import javax.swing.ImageIcon;
 
 import Controllers.GameArea;
 
@@ -10,24 +13,20 @@ public class StickStructure extends Structure {
 	public final int VERTICAL = 0, HORIZONTAL = 1;
 
 	public StickStructure(int x, int y, Container c) {
-		super();
+		super(Squares.BLUE.image);
 		setBounds(x, y, c.getWidth() / 12, 4 * (c.getWidth() / 12));
 		container = (GameArea) c;
 		createRectangles();
 	}
 
 	private void createRectangles() {
-		first = new Rectangle(0, 0, getHeight() / 4, getHeight() / 4);
+		first = new Rectangle(0, 0, getHeight() / 4, getHeight() / 4, image);
 		second = new Rectangle(0, getHeight() / 4, getHeight() / 4,
-				getHeight() / 4);
+				getHeight() / 4, image);
 		third = new Rectangle(0, 2 * (getHeight() / 4), getHeight() / 4,
-				getHeight() / 4);
+				getHeight() / 4, image);
 		fourth = new Rectangle(0, 3 * (getHeight() / 4), getHeight() / 4,
-				getHeight() / 4);
-		first.setBackground(Color.blue);
-		second.setBackground(Color.blue);
-		third.setBackground(Color.blue);
-		fourth.setBackground(Color.blue);
+				getHeight() / 4, image);
 		add(first, 0);
 		add(second, 0);
 		add(third, 0);

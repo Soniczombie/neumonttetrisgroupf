@@ -17,6 +17,7 @@ public class Driver {
 		mainMenu = new MainMenu();
 		scores = new ScoreBoard(450, 0, 150, 100, this);
 		gameArea = new GameArea(0, 0, 600, 1045);
+		gameArea.setBounds(0, 0, 600, 1045);
 		window.addKeyListener(gameArea);
 		gameArea.addNewStructure();
 		window.add(gameArea);

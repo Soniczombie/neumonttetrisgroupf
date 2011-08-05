@@ -10,20 +10,20 @@ public class LRightStructure extends Structure {
 	public final int STRAIGHT = 0, RIGHT = 1, UPSIDEDOWN = 2, LEFT = 3;
 
 	public LRightStructure(int x, int y, Container c) {
-		super();
+		super(Squares.YELLOW.image);
 		container = (GameArea) c;
 		setBounds(x, y, c.getWidth() / 6, c.getWidth() / 4);
 		createRectangles();
 	}
 
 	private void createRectangles() {
-		top = new Rectangle(0, 0, getWidth() / 2, getHeight() / 3);
+		top = new Rectangle(0, 0, getWidth() / 2, getHeight() / 3,image);
 		right = new Rectangle(getWidth() / 2, 0, getWidth() / 2,
-				getHeight() / 3);
+				getHeight() / 3,image);
 		middle = new Rectangle(0, getHeight() / 3, getWidth() / 2,
-				getHeight() / 3);
+				getHeight() / 3,image);
 		bottom = new Rectangle(0, 2 * (getHeight() / 3), getWidth() / 2,
-				getHeight() / 3);
+				getHeight() / 3,image);
 		top.setBackground(Color.green);
 		right.setBackground(Color.green);
 		middle.setBackground(Color.green);

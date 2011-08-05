@@ -18,10 +18,10 @@ public class ScoreBoard extends Container {
 	public ScoreBoard(int x, int y, int w, int h, Driver d) {
 		super();
 		setBounds(x, y, w, h);
-		frame = new Rectangle(0, 0, w, h);
+		frame = new Rectangle(0, 0, w, h, null);
 		frame.setBackground(Color.gray);
 		background = new Rectangle(w / 10, h / 10, (int) (.8 * w),
-				(int) (.8 * h));
+				(int) (.8 * h), null);
 		background.setBackground(new Color(204, 255, 204));
 		score = new JLabel("Score: " + intScore);
 		level = new JLabel("Level: " + intLevel);

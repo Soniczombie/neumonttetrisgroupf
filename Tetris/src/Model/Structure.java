@@ -2,6 +2,8 @@ package Model;
 
 import java.awt.Container;
 
+import javax.swing.ImageIcon;
+
 import Controllers.GameArea;
 
 public abstract class Structure extends Container{
@@ -9,6 +11,11 @@ public abstract class Structure extends Container{
 	private static final long serialVersionUID = 1L;
 	private int position;
 	protected GameArea container;
+	protected ImageIcon image;
+	
+	protected Structure(ImageIcon image) {
+		this.image = image;
+	}
 
 	public void setPosition(int position) {
 		this.position = position;
