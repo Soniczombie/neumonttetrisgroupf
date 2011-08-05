@@ -103,7 +103,7 @@ public class GameArea extends Rectangle implements ActionListener, KeyListener {
 	}
 
 	private boolean gameOver(Container structure) {
-		if (structure.getY() <= (getWidth() / 12) * 5) {
+		if (structure.getY() <= (getWidth() / 12) * 2) {
 			timer.stop();
 			JOptionPane.showMessageDialog(null, "Game Over");
 			if (Driver.scores.getScore() > Driver.scores.getHighestScore()) {
