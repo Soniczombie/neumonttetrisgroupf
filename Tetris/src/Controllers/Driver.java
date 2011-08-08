@@ -26,7 +26,7 @@ public class Driver {
 	public void startGame()
 	{
 		scores = new ScoreBoard(450, 0, 150, 100, this);
-		gameArea = new GameArea(0, 0, 600, 1045);
+		gameArea = new GameArea(0, 0, 600, 1045, this);
 		gameArea.setBounds(0, 0, 600, 1045);
 		window.addKeyListener(gameArea);
 		gameArea.addNewStructure();
@@ -47,6 +47,11 @@ public class Driver {
 		gameArea.updatePiecesColors();
 	}
 
+	public void CloseWindow()
+	{
+		this.window.dispose();
+	}
+	
 	public void createWindow() {
 		window = new JFrame();
 		window.setBounds(450, 100, 620, 1090);

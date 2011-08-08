@@ -3,6 +3,7 @@ package Controllers;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -38,9 +39,14 @@ public class GameArea extends Rectangle implements ActionListener, KeyListener {
 	private Model.Squares levelColor;
 	public Sound s;
 	private boolean pieceDropped = false;
+	private JLabel pause;
+	private JLabel quit;
+	private Driver d;
+	private boolean pauseOpen = false;
 
-	public GameArea(int x, int y, int w, int h) {
+	public GameArea(int x, int y, int w, int h, Driver d) {
 		super(x, y, w, h, null);
+		this.d = d;
 		background = new Rectangle(0, 0, w, h, null);
 		this.setLayout(null);
 		timer = new Timer(1000, this);
@@ -48,6 +54,17 @@ public class GameArea extends Rectangle implements ActionListener, KeyListener {
 		effect = new Rectangle(0, rowRemoverYPosition, 0, getWidth() / 12, null);
 		effect.setBackground(Color.lightGray);
 		setLevelColor();
+		pause = new JLabel("Pause");
+		pause.setForeground(Color.WHITE);
+		pause.setBounds((this.getWidth() / 2)-70, (this.getHeight() / 2)-200, 190, 40);
+		Font f = new Font("Dialog", Font.PLAIN, 44);
+		pause.setFont(f);
+		
+		quit = new JLabel("Esc to Quit");
+		quit.setForeground(Color.WHITE);
+		quit.setBounds((this.getWidth() / 2)-85, (this.getHeight() / 2)-150, 190, 40);
+		f = new Font("Dialog", Font.PLAIN, 30);
+		quit.setFont(f);
 		timer.start();
 		playMusic();
 	}
@@ -179,12 +196,11 @@ public class GameArea extends Rectangle implements ActionListener, KeyListener {
 	@Override
 	public void keyPressed(KeyEvent k) {
 		if (k.getKeyCode() == 10) {
-			if (timer.isRunning()) {
-				timer.stop();
-			} else {
-				timer.start();
-			}
-		} else if (timer.isRunning()) {
+			Pause();
+		}else if (k.getKeyCode() == KeyEvent.VK_ESCAPE){
+			if(pauseOpen)
+				d.CloseWindow();
+		}else if (timer.isRunning()) {
 			if (k.getKeyCode() == 37) {
 				structure.moveLeft();
 			} else if (k.getKeyCode() == 40) {
@@ -199,6 +215,22 @@ public class GameArea extends Rectangle implements ActionListener, KeyListener {
 				s.changeTrack();
 			}
 			Driver.window.repaint();
+		}
+	}
+
+	private void Pause() {
+		if (timer.isRunning()) {
+			timer.stop();
+			this.add(pause,0);
+			this.add(quit,0);
+			this.repaint();
+			pauseOpen = true;
+		} else {
+			timer.start();
+			pauseOpen = false;
+			this.remove(pause);
+			this.remove(quit);
+			this.repaint();
 		}
 	}
 
