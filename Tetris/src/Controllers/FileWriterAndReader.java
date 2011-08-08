@@ -1,12 +1,14 @@
 package Controllers;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 
 public class FileWriterAndReader {
-	public static void writeScoreToFile(int x) {
+	public static void writeScoreToFile(Score... scores) {
 		boolean repeat = true;
 		DataOutputStream out = null;
 		File data = null;
@@ -20,14 +22,18 @@ public class FileWriterAndReader {
 			}
 
 			try {
-				out.writeInt(x);
+				for (Score score : scores) {
+					out.writeUTF(score.getName());
+					out.writeInt(score.getValue());
+					out.writeChar('\n');
+				}
 				out.close();
 			} catch (Exception e) {
 			}
 		}
 	}
 
-	public static int readScoreFromFile() {
+	public static Score[] readScoresFromFile() {
 		int x = 0;
 		DataInputStream in = null;
 		try {
@@ -35,12 +41,20 @@ public class FileWriterAndReader {
 		} catch (Exception e) {
 			x = 0;
 		}
-
+		ArrayList<Score> scores = new ArrayList<Score>();
 		try {
-			x = in.readInt();
+			while(in.available()>0){//There are scores in the file
+				String scoreName = in.readUTF();
+				int scoreValue = in.readInt();
+				in.readChar();//Jump to the next line
+				Score score = new Score();
+				score.setName(scoreName);
+				score.setValue(scoreValue);
+				scores.add(score);
+			}
 			in.close();
 		} catch (Exception e) {
 		}
-		return x;
+		return scores.toArray(new Score[0]);
 	}
 }

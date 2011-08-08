@@ -5,11 +5,13 @@ import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
 
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import Views.HighScoresTable;
 import Views.MainMenu;
 import Views.ScoreBoard;
 
@@ -111,7 +113,7 @@ public class Driver {
 	{
 		window = new JFrame();
 		window.setBounds(600, 200, 410, 340);
-		window.setBackground(Color.black);
+		window.getContentPane().setBackground(Color.black);
 		window.setLayout(null);
 		window.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		Image icon = Toolkit.getDefaultToolkit().getImage("images/tetris.png");
@@ -119,11 +121,15 @@ public class Driver {
 		
 		//Label
 		JLabel title = new JLabel();
+		title.setForeground(Color.white);
 		title.setText("High Scores");
 		title.setBounds(165, 10, 100, 15);
 		title.setBackground(Color.white);
 		title.setVisible(true);
 		window.add(title);
+		HighScoresTable highScoresContainer = new HighScoresTable();
+		highScoresContainer.setBounds(0, 15, 410, 325);
+		window.add(highScoresContainer);
 		
 		
 		window.setVisible(true);
