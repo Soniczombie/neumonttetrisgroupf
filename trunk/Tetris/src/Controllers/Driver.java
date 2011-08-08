@@ -1,6 +1,9 @@
 package Controllers;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -27,6 +30,8 @@ public class Driver {
 		gameArea.setBounds(0, 0, 600, 1045);
 		window.addKeyListener(gameArea);
 		gameArea.addNewStructure();
+		Image icon = Toolkit.getDefaultToolkit().getImage("images/tetris.png");
+		window.setIconImage(icon);
 		window.add(gameArea);
 		window.add(scores, 0);
 		window.setVisible(true);
@@ -52,19 +57,23 @@ public class Driver {
 	public void Instructions()
 	{
 		window = new JFrame();
-		window.setBounds(600, 200, 400, 500);
+		window.setBounds(600, 200, 410, 340);
+		window.setBackground(Color.black);
 		window.setLayout(null);
-		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		window.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		Image icon = Toolkit.getDefaultToolkit().getImage("images/tetris.png");
+		window.setIconImage(icon);
 		
 		//Label
 		JLabel title = new JLabel();
 		title.setText("Instructions");
-		title.setBounds(25, 15, 100, 25);
+		title.setBounds(165, 10, 100, 15);
+		title.setBackground(Color.white);
 		title.setVisible(true);
 		
 		//Text Area
 		JTextArea instructions = new JTextArea(5,20);
-		instructions.setBounds(0, 25, 380, 500);
+		instructions.setBounds(5, 30, 382, 265);
 		instructions.setLineWrap(true);
 		instructions.setWrapStyleWord(true);
 		instructions.setEditable(false);
@@ -83,17 +92,34 @@ public class Driver {
 		scrollPane.setPreferredSize(new Dimension(400, 500));
 		scrollPane.setVisible(true);
 		
+		window.add(title);
 		window.add(instructions);
+		window.add(scrollPane);
 		window.setVisible(true);
 		window.repaint();
 	}
 	
+	/**
+	 * Sets up and displays the High Scores Screen. 
+	 */
 	public void HighScores()
 	{
 		window = new JFrame();
-		window.setBounds(600, 200, 400, 500);
+		window.setBounds(600, 200, 410, 340);
+		window.setBackground(Color.black);
 		window.setLayout(null);
-		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		window.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		Image icon = Toolkit.getDefaultToolkit().getImage("images/tetris.png");
+		window.setIconImage(icon);
+		
+		//Label
+		JLabel title = new JLabel();
+		title.setText("High Scores");
+		title.setBounds(165, 10, 100, 15);
+		title.setBackground(Color.white);
+		title.setVisible(true);
+		window.add(title);
+		
 		
 		window.setVisible(true);
 		window.repaint();
