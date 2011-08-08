@@ -25,17 +25,17 @@ public class ScoreBoard extends Container {
 		background.setBackground(new Color(204, 255, 204));
 		score = new JLabel("Score: " + intScore);
 		level = new JLabel("Level: " + intLevel);
-		highestScore = new JLabel("Record: "
-				+ FileWriterAndReader.readScoreFromFile());
-		intHighestScore = FileWriterAndReader.readScoreFromFile();
-		highestScore.setBounds(w / 8, (int) (0.6 * h), w, h / 4);
+//		highestScore = new JLabel("Record: "
+//				+ FileWriterAndReader.readScoreFromFile());
+//		intHighestScore = FileWriterAndReader.readScoreFromFile();
+		//highestScore.setBounds(w / 8, (int) (0.6 * h), w, h / 4);
 		score.setBounds(w / 8, h / 8, w, h / 4);
 		level.setBounds(w / 8, h / 3, w, h / 4);
 		add(frame, 0);
 		add(background, 0);
 		add(score, 0);
 		add(level, 0);
-		add(highestScore, 0);
+		//add(highestScore, 0);
 		driver = d;
 	}
 
@@ -70,7 +70,7 @@ public class ScoreBoard extends Container {
 	public void updateHighestScore() {
 		intHighestScore = intScore;
 		highestScore.setText("Record: " + intHighestScore);
-		FileWriterAndReader.writeScoreToFile(intHighestScore);
+		//FileWriterAndReader.writeScoreToFile(intHighestScore);
 	}
 
 }

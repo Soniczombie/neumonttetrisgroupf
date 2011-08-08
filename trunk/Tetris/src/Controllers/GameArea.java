@@ -96,11 +96,9 @@ public class GameArea extends Rectangle implements ActionListener, KeyListener {
 		if (structure.getY() <= (getWidth() / 12) * 2) {
 			timer.stop();
 			JOptionPane.showMessageDialog(null, "Game Over");
-			if (Driver.scores.getScore() > Driver.scores.getHighestScore()) {
-				JOptionPane.showMessageDialog(null,
-						"Congratulations! You have broken a new record!");
-				Driver.scores.updateHighestScore();
-			}
+			String name = JOptionPane.showInputDialog("Enter a name to save your score:");
+			Score newScore = new Score(name,Driver.scores.getScore());
+			FileWriterAndReader.writeScoreToFile(newScore);
 			return true;
 		} else {
 			return false;
