@@ -7,14 +7,13 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
 import Controllers.Driver;
 
 /**
@@ -29,7 +28,7 @@ public class MainMenu extends Container implements ActionListener {
 	public Driver game;
 
 	/**
-	 * 
+	 * Main Menu
 	 */
 	public MainMenu()
 	{
@@ -38,6 +37,8 @@ public class MainMenu extends Container implements ActionListener {
 		window.setBounds(500, 500, 320, 385);
 		window.setBackground(Color.BLACK);
 		window.setLayout(null);
+		Image icon = Toolkit.getDefaultToolkit().getImage("images/tetris.png");
+		window.setIconImage(icon);
 		ImagePanel image = new ImagePanel("images/tetris_logo.jpg");
 		window.add(image);
 		PlayGame();
@@ -47,7 +48,7 @@ public class MainMenu extends Container implements ActionListener {
 	}
 	
 	/**
-	 * Buttons
+	 * Play Game Button
 	 */
 	public void PlayGame()
 	{
@@ -62,6 +63,9 @@ public class MainMenu extends Container implements ActionListener {
 		window.add(playGame,0);
 	}
 	
+	/**
+	 * High Score Button
+	 */
 	public void HighScores()
 	{
 		highScores = new JButton();
@@ -75,10 +79,13 @@ public class MainMenu extends Container implements ActionListener {
 		window.add(highScores,0);
 	}
 	
+	/**
+	 * Instructions Button
+	 */
 	public void Instructions()
 	{
 		Instructions = new JButton();
-		Instructions.setBounds(90, 220, 140, 20);
+		Instructions.setBounds(90, 210, 140, 20);
 		Instructions.setText("Instructions");
 		Instructions.setBackground(Color.black);
 		Instructions.setForeground(Color.blue);
@@ -101,10 +108,12 @@ public class MainMenu extends Container implements ActionListener {
 	    	game.startGame();
 	    } 
 	    else if(Action.equals("HighScore")){
-//	      game.HighScores();
+	    	game = new Driver();
+	    	game.HighScores();
 	    } 
 	    else if(Action.equals("Instructions")){
-//	      game.Instructions();
+	    	game = new Driver();
+	    	game.Instructions();
 	    }
 	}
 }
