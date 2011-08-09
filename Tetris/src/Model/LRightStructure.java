@@ -11,9 +11,15 @@ public class LRightStructure extends Structure {
 
 	public LRightStructure(int x, int y, Container c) {
 		super(Squares.YELLOW.image);
-		container = (GameArea) c;
-		setBounds(x, y, c.getWidth() / 6, c.getWidth() / 4);
-		createRectangles();
+		id = 1;
+		if(c instanceof GameArea){			
+			container = (GameArea) c;
+			setBounds(x, y, c.getWidth() / 6, c.getWidth() / 4);
+			createRectangles();		
+		}else{
+			setBounds(0, 0, (c.getHeight()/3)*2, c.getHeight());
+			createRectangles();
+		}
 	}
 
 	private void createRectangles() {

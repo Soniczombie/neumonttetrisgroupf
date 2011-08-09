@@ -26,5 +26,10 @@ public class Score {
 	public void setValue(int score) {
 		this.value = score;
 	}
+	
+	@Override
+	public String toString() {
+		return value+"";
+	}
 
 }

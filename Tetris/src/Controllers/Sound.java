@@ -17,7 +17,7 @@ public class Sound  // Holds one audio file
 			CurrentSong = 1;
 			FileName = filename;
 			String prefix = System.getProperty("user.dir");
-			File soundFile = new File(prefix+System.getProperty("file.separator")+"src"+System.getProperty("file.separator")+FileName);
+			File soundFile = new File(prefix+System.getProperty("file.separator")+"sounds"+System.getProperty("file.separator")+FileName);
 			songPath = soundFile.toURI().toURL(); // Get the Sound URL
 			song = Applet.newAudioClip(songPath); // Load the Sound
 		} catch (Exception e) {
@@ -28,6 +28,7 @@ public class Sound  // Holds one audio file
 
 	public void playSound() {
 		song.loop(); // Play
+		System.out.println("sound playing");
 	}
 
 	public void stopSound() {
@@ -52,12 +53,16 @@ public class Sound  // Holds one audio file
 				CurrentSong = 3;
 				break;
 			case 3:
+				FileName = "Pokemon.wav";
+				CurrentSong = 4;
+				break;
+			case 4:
 				FileName = "Tetris-TypeA.wav";
 				CurrentSong = 1;
 				break;
 			}
 			String prefix = System.getProperty("user.dir");
-			File soundFile = new File(prefix+System.getProperty("file.separator")+"src"+System.getProperty("file.separator")+FileName);
+			File soundFile = new File(prefix+System.getProperty("file.separator")+"sounds"+System.getProperty("file.separator")+FileName);
 			try {
 				songPath = soundFile.toURI().toURL();
 			} catch (MalformedURLException e) {

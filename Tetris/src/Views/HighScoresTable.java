@@ -2,6 +2,7 @@ package Views;
 
 import java.awt.Color;
 import java.awt.GridLayout;
+
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 

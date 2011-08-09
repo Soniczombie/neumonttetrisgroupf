@@ -11,9 +11,15 @@ public class SStructure extends Structure {
 
 	public SStructure(int x, int y, Container c) {
 		super(Squares.ORANGE.image);
-		setBounds(x, y, c.getWidth() / 4, c.getWidth() / 6);
-		container = (GameArea) c;
-		createRectangles();
+		id = 3;
+		if(c instanceof GameArea){			
+			setBounds(x, y, c.getWidth() / 4, c.getWidth() / 6);
+			container = (GameArea) c;
+			createRectangles();		
+		}else{
+			setBounds(0, 0, c.getWidth(), (c.getWidth()/3)*2);
+			createRectangles();
+		}
 	}
 
 	private void createRectangles() {
@@ -211,7 +217,7 @@ public class SStructure extends Structure {
 	}
 
 	public boolean canMoveToRight(Rectangle background) {
-		
+
 		if (this.getPosition() == this.HORIZONTAL) {
 			return canMoveRightHorizontal(background);
 		} else {
@@ -258,7 +264,7 @@ public class SStructure extends Structure {
 	}
 
 	public boolean canTurn(Rectangle background) {
-		
+
 		if (this.getPosition() == this.HORIZONTAL) {
 			return canTurnFromHorizontal(background);
 		} else {

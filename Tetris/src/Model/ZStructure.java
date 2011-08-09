@@ -11,9 +11,15 @@ public class ZStructure extends Structure {
 
 	public ZStructure(int x, int y, Container c) {
 		super(Squares.PURPLE.image);
-		setBounds(x, y, c.getWidth() / 4, c.getWidth() / 6);
-		container = (GameArea) c;
-		createRectangles();
+		id = 6;
+		if(c instanceof GameArea){			
+			setBounds(x, y, c.getWidth() / 4, c.getWidth() / 6);
+			container = (GameArea) c;
+			createRectangles();		
+		}else{
+			setBounds(0,0,c.getWidth(),(c.getWidth()/3)*2);
+			createRectangles();
+		}
 	}
 
 	private void createRectangles() {

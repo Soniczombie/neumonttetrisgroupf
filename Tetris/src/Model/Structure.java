@@ -9,6 +9,7 @@ import Controllers.GameArea;
 public abstract class Structure extends Container{
 
 	private static final long serialVersionUID = 1L;
+	public int id;
 	private int position;
 	protected GameArea container;
 	protected ImageIcon image;
@@ -35,7 +36,7 @@ public abstract class Structure extends Container{
 	public abstract void moveLeft();
 
 	public void reachedBottom(){
-		//TODO: put reached bottom sound here
+		
 	}
 
 	public abstract boolean checkCollision(Rectangle background);

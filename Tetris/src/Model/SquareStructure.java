@@ -10,9 +10,15 @@ public class SquareStructure extends Structure {
 
 	public SquareStructure(int x, int y, Container c) {
 		super(Squares.GREEN.image);
-		setBounds(x, y, c.getWidth() / 6, c.getWidth() / 6);
-		container = (GameArea) c;
-		createRectangles();
+		id = 2;
+		if(c instanceof GameArea){			
+			setBounds(x, y, c.getWidth() / 6, c.getWidth() / 6);
+			container = (GameArea) c;
+			createRectangles();
+		}else{
+			setBounds(0, 0, c.getWidth(), c.getHeight());
+			createRectangles();
+		}
 	}
 
 	private void createRectangles() {
