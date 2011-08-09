@@ -34,7 +34,7 @@ public class MainMenu extends Container implements ActionListener {
 	{
 		//Frame
 		window = new JFrame();
-		window.setBounds(500, 500, 320, 385);
+		window.setBounds(550, 500, 320, 385);
 		window.setBackground(Color.BLACK);
 		window.setLayout(null);
 		Image icon = Toolkit.getDefaultToolkit().getImage("images/tetris.png");
