@@ -1,17 +1,15 @@
 package Model;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 import javax.swing.ImageIcon;
-import javax.swing.JComponent;
+import javax.swing.JPanel;
 
 /**
  * Rectangle Supplier Class Author: David D. Riley Date: April, 2004
  */
-public class Rectangle extends JComponent {
-	
-	private static final long serialVersionUID = 1L;
+@SuppressWarnings("serial")
+public class Rectangle extends JPanel {
 	ImageIcon backgroundImage = null;
 
 	public ImageIcon getBackgroundImage() {
@@ -33,7 +31,7 @@ public class Rectangle extends JComponent {
 		if(backgroundImage != null){
 			this.backgroundImage = backgroundImage;
 		}else{
-			setBackground(Color.black);
+			setBackground(null);
 		}
 		setBounds(x, y, w, h);
 	}
@@ -43,11 +41,24 @@ public class Rectangle extends JComponent {
 		Graphics2D g2d = (Graphics2D) g;
 		if(backgroundImage != null){
 			g2d.drawImage(backgroundImage.getImage(),0,0,this.getWidth(),this.getHeight(),null);
-		}else{
-			g.setColor(getBackground());
-			g.fillRect(0, 0, getWidth() - 1, getHeight() - 1);
-			paintChildren(g);
+		}
+		else{
+			super.paintComponent(g);
+//			g.setColor(getBackground());
+//			g.fillRect(0, 0, getWidth() - 1, getHeight() - 1);
+//			paintChildren(g);
 		}
 	}
+
+//	/**
+//	 * post: this method draws a filled Rectangle and the upper left corner is
+//	 * (getX(), getY()) and the rectangle's dimensions are getWidth() and
+//	 * getHeight() and the rectangle's color is getBackground()
+//	 */
+//	public void paint(Graphics g) {
+//			g.setColor(getBackground());
+//			g.fillRect(0, 0, getWidth() - 1, getHeight() - 1);
+//			paintChildren(g);
+//	}
 
 }

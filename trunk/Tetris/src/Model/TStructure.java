@@ -11,9 +11,15 @@ public class TStructure extends Structure {
 
 	public TStructure(int x, int y, Container c) {
 		super(Squares.RED.image);
-		setBounds(x, y, c.getWidth() / 4, c.getWidth() / 6);
-		container = (GameArea) c;
-		createRectangles();
+		id = 5;
+		if(c instanceof GameArea){
+			setBounds(x, y, c.getWidth() / 4, c.getWidth() / 6);
+			container = (GameArea) c;
+			createRectangles();
+		}else{
+			setBounds(0,0,c.getWidth(),(c.getWidth()/3)*2);
+			createRectangles();
+		}
 	}
 
 	private void createRectangles() {
@@ -204,6 +210,7 @@ public class TStructure extends Structure {
 		} else {
 			reachedBottomLeft();
 		}
+		repaint();
 	}
 
 	private void reachedBottomLeft() {

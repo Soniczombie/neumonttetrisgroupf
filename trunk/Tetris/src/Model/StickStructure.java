@@ -11,9 +11,15 @@ public class StickStructure extends Structure {
 
 	public StickStructure(int x, int y, Container c) {
 		super(Squares.BLUE.image);
-		setBounds(x, y, c.getWidth() / 12, 4 * (c.getWidth() / 12));
-		container = (GameArea) c;
-		createRectangles();
+		id = 4;
+		if(c instanceof GameArea){			
+			setBounds(x, y, c.getWidth() / 12, 4 * (c.getWidth() / 12));
+			container = (GameArea) c;
+			createRectangles();		
+		}else{
+			setBounds(c.getWidth()/4, 0, c.getHeight()/4, c.getHeight());
+			createRectangles();
+		}
 	}
 
 	private void createRectangles() {

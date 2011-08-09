@@ -12,9 +12,16 @@ public class LLeftStructure extends Structure {
 
 	public LLeftStructure(int x, int y, Container c) {
 		super(Squares.CYAN.image);
-		setBounds(x, y, c.getWidth() / 6, c.getWidth() / 4);
-		container = (GameArea) c;
-		createRectangles();
+		id = 0;
+		if(c instanceof GameArea){			
+			setBounds(x, y, c.getWidth() / 6, c.getWidth() / 4);
+			container = (GameArea) c;
+			createRectangles();
+		}else{
+			setBounds(0, 0, (c.getHeight()/3)*2, c.getHeight());
+			createRectangles();
+		}
+		
 	}
 
 	private void createRectangles() {

@@ -3,20 +3,18 @@ package Controllers;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.Random;
 
-import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 import Model.LLeftStructure;
 import Model.LRightStructure;
+import Model.NextPiecePanel;
 import Model.Rectangle;
 import Model.SStructure;
 import Model.SquareStructure;
@@ -25,6 +23,7 @@ import Model.StickStructure;
 import Model.Structure;
 import Model.TStructure;
 import Model.ZStructure;
+import Views.PauseMenu;
 
 public class GameArea extends Rectangle implements ActionListener, KeyListener {
 
@@ -38,39 +37,28 @@ public class GameArea extends Rectangle implements ActionListener, KeyListener {
 	private Rectangle effect;
 	private Model.Squares levelColor;
 	public Sound s;
+	Sound thud = new Sound("thud.wav");
 	private boolean pieceDropped = false;
-	private JLabel pause;
-	private JLabel quit;
-	private Driver d;
-	private boolean pauseOpen = false;
+	public PauseMenu menu;
 
-	public GameArea(int x, int y, int w, int h, Driver d) {
+	public GameArea(int x, int y, int w, int h) {
 		super(x, y, w, h, null);
-		this.d = d;
 		background = new Rectangle(0, 0, w, h, null);
+		background.setOpaque(false);
 		this.setLayout(null);
 		timer = new Timer(1000, this);
 		effectTimer = new Timer(30, this);
 		effect = new Rectangle(0, rowRemoverYPosition, 0, getWidth() / 12, null);
 		effect.setBackground(Color.lightGray);
+		menu = new PauseMenu(this);
 		setLevelColor();
-		pause = new JLabel("Pause");
-		pause.setForeground(Color.WHITE);
-		pause.setBounds((this.getWidth() / 2)-70, (this.getHeight() / 2)-200, 190, 40);
-		Font f = new Font("Dialog", Font.PLAIN, 44);
-		pause.setFont(f);
-		
-		quit = new JLabel("Esc to Quit");
-		quit.setForeground(Color.WHITE);
-		quit.setBounds((this.getWidth() / 2)-85, (this.getHeight() / 2)-150, 190, 40);
-		f = new Font("Dialog", Font.PLAIN, 30);
-		quit.setFont(f);
 		timer.start();
-		playMusic();
+//		menu.setEnabled(false);
 	}
-
+	
 	private static Squares[] squareTable = {Squares.ORANGE, Squares.YELLOW, Squares.CYAN, Squares.GREEN,
 		Squares.BLUE,Squares.PURPLE,Squares.RED};
+	
 	private void setLevelColor() {
 		int x = Driver.scores.getLevel() % 7;
 		levelColor = squareTable[x];
@@ -85,11 +73,13 @@ public class GameArea extends Rectangle implements ActionListener, KeyListener {
 		structure.reachedBottom();
 		if (!gameOver((Container) structure)) {
 			cutSlacks();
-			addNewStructure();
+			addNewStructure(Driver.window.np);
 			if(rowsRemoved > 0)
 				CalculateScore();
 		}
 		pieceDropped = true;
+		thud.playSoundOnce();
+		repaint();
 	}
 
 	private boolean gameOver(Container structure) {
@@ -112,7 +102,7 @@ public class GameArea extends Rectangle implements ActionListener, KeyListener {
 
 	public void removeMe(Container c) {
 		remove(c);
-		repaint();
+//		repaint();
 	}
 
 	public boolean canTurn(Structure s) {
@@ -129,37 +119,28 @@ public class GameArea extends Rectangle implements ActionListener, KeyListener {
 		boolean authorization = s.canMoveToLeft(background);
 		return authorization;
 	}
-
-	private Structure getRandomStructure() {
-		Random gen = new Random();
-		int x = gen.nextInt(7);
-		switch (x) {
-		case 0:
-			return new TStructure(getWidth() / 3, 0, this);
-		case 1:
-			return new SquareStructure(getWidth() / 3, 0, this);
-		case 2:
-			return new StickStructure(getWidth() / 3, 0, this);
-		case 3:
-			return new ZStructure(getWidth() / 3, 0, this);
-		case 4:
-			return new SStructure(getWidth() / 3, 0, this);
-		case 5:
-			return new LRightStructure(getWidth() / 3, 0, this);
-		default:
-			return new LLeftStructure(getWidth() / 3, 0, this);
-		}
+	
+	private Structure getStructure(int id) {
+		Structure[] structures = {new LLeftStructure(getWidth() / 3, 0, this),new LRightStructure(getWidth() / 3, 0, this),
+				new SquareStructure(getWidth() / 3, 0, this),new SStructure(getWidth() / 3, 0, this),
+				new StickStructure(getWidth() / 3, 0, this),new TStructure(getWidth() / 3, 0, this),
+				new ZStructure(getWidth() / 3, 0, this)};
+		return structures[id];
 	}
 
-	public void addNewStructure() {
-		structure = getRandomStructure();
+	//gets structure from the nextPiece and adds
+	public void addNewStructure(NextPiecePanel np) {
+		structure = np.getNextPiece();
+		structure = getStructure(structure.id);
 		add(structure, 0);
+		np.addNewStructure();
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == timer) {
-			structure.moveDown();
+			if(structure !=null)
+				structure.moveDown();
 		} else if (e.getSource() == effectTimer) {
 			JLabel score = new JLabel("" + Driver.scores.getScore());
 			if (effect.getY() != rowRemoverYPosition) {
@@ -184,7 +165,6 @@ public class GameArea extends Rectangle implements ActionListener, KeyListener {
 				effect.add(score, 0);
 			}
 		}
-		Driver.window.repaint();
 	}
 	public void playMusic()
 	{
@@ -193,12 +173,13 @@ public class GameArea extends Rectangle implements ActionListener, KeyListener {
 	}
 	@Override
 	public void keyPressed(KeyEvent k) {
-		if (k.getKeyCode() == 10) {
-			Pause();
-		}else if (k.getKeyCode() == KeyEvent.VK_ESCAPE){
-			if(pauseOpen)
-				d.CloseWindow();
-		}else if (timer.isRunning()) {
+		if(timer.isRunning()){
+			if (k.getKeyCode() == KeyEvent.VK_ENTER){
+				timer.stop();
+				s.stopSound();
+				menu.setEnabled(true);
+				repaint();
+			}			
 			if (k.getKeyCode() == 37) {
 				structure.moveLeft();
 			} else if (k.getKeyCode() == 40) {
@@ -212,24 +193,8 @@ public class GameArea extends Rectangle implements ActionListener, KeyListener {
 			} else if(k.getKeyCode() == 192){
 				s.changeTrack();
 			}
-			Driver.window.repaint();
 		}
-	}
-
-	private void Pause() {
-		if (timer.isRunning()) {
-			timer.stop();
-			this.add(pause,0);
-			this.add(quit,0);
-			this.repaint();
-			pauseOpen = true;
-		} else {
-			timer.start();
-			pauseOpen = false;
-			this.remove(pause);
-			this.remove(quit);
-			this.repaint();
-		}
+		
 	}
 
 	@Override
@@ -310,6 +275,8 @@ public class GameArea extends Rectangle implements ActionListener, KeyListener {
 		timer.stop();
 		rowRemoverYPosition = y;
 		effectTimer.start();
+		Sound row = new Sound("row.wav");
+		row.playSoundOnce();
 	}
 
 	private void removeRow(int y) {
@@ -317,7 +284,6 @@ public class GameArea extends Rectangle implements ActionListener, KeyListener {
 			remove(findComponentAt(x, y));
 		}
 		pullPiecesDown(y);
-		Driver.window.repaint();
 	}
 
 	private void pullPiecesDown(int z) {
@@ -339,16 +305,20 @@ public class GameArea extends Rectangle implements ActionListener, KeyListener {
 			for (int x = 0, z = 0; x < getWidth(); x += getWidth() / 12, z++) {
 				if (findComponentAt(x, y) != background
 						&& findComponentAt(x, y) != this) {
-					((Rectangle) findComponentAt(x, y)).setBackgroundImage(levelColor.image);
+					Rectangle comp = ((Rectangle) findComponentAt(x, y));
+					comp.setBackgroundImage(levelColor.image);
 				}
 			}
 		}
 		updateSpeed();
-		Driver.window.repaint();
 	}
 
 	private void updateSpeed() {
 		if (timer.getDelay() - 50 > 100)
 			timer.setDelay(timer.getDelay() - 50);
+	}
+	
+	public Timer getTimer(){
+		return this.timer;
 	}
 }
