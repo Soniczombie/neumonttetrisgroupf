@@ -67,15 +67,37 @@ public class ScoreBoard extends Container {
 		return intLevel;
 	}
 
-	public void updateScore(int x) {
-		clearedLines++;
-		if (clearedLines == 10) {
+	public int updateScore(int rowsRemoved) {
+		clearedLines += rowsRemoved;
+		if (clearedLines >= 10) {
 			updateLevel(getLevel() + 1);
-			clearedLines = 0;
+			clearedLines = clearedLines % 10;
 		}
-		intScore = x;
-		score.setText("" + x);
+		int points = 0;
+		switch(rowsRemoved)
+		{
+		case 1:
+			points = 40;
+			rowsRemoved = 0;
+			break;
+		case 2:
+			points = 100;
+			rowsRemoved = -1;
+			break;
+		case 3:
+			points = 300;
+			rowsRemoved = -3;
+			break;
+		case 4:
+			points = 1200;
+			rowsRemoved = -6;
+			break;
+		}
+		intScore += (points*intLevel);
+		score.setText("Score: " + intScore);
 		updateRows();
+		return rowsRemoved;
+
 	}
 
 	public void updateLevel(int x) {

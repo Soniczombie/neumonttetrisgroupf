@@ -75,7 +75,7 @@ public class GameArea extends Rectangle implements ActionListener, KeyListener {
 			cutSlacks();
 			addNewStructure(Driver.window.np);
 			if(rowsRemoved > 0)
-				CalculateScore();
+				rowsRemoved = CalculateScore();
 		}
 		pieceDropped = true;
 		thud.playSoundOnce();
@@ -233,28 +233,9 @@ public class GameArea extends Rectangle implements ActionListener, KeyListener {
 		}
 	}
 
-	private void CalculateScore() {
-		int score = 0;
-		switch(rowsRemoved)
-		{
-		case 1:
-			score = 40;
-			rowsRemoved = 0;
-			break;
-		case 2:
-			score = 100;
-			rowsRemoved = -1;
-			break;
-		case 3:
-			score = 300;
-			rowsRemoved = -3;
-			break;
-		case 4:
-			score = 1200;
-			rowsRemoved = -6;
-			break;
-		}
-		Driver.scores.updateScore(Driver.scores.getScore() + (score*Driver.scores.getLevel()));
+	private int CalculateScore() {
+		
+		return Driver.scores.updateScore(rowsRemoved);
 		//rowsRemoved = 0;
 	}
 
