@@ -4,6 +4,7 @@ import java.util.Random;
 
 import javax.swing.JPanel;
 
+
 public class NextPiecePanel extends JPanel{
 	/**
 	 * 
