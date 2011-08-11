@@ -5,6 +5,7 @@ import java.awt.Container;
 import javax.swing.ImageIcon;
 
 import Controllers.GameArea;
+import Controllers.Sound;
 
 public abstract class Structure extends Container{
 
@@ -37,6 +38,8 @@ public abstract class Structure extends Container{
 
 	public void reachedBottom(){
 		
+		Sound s = new Sound("Untitled.wav");
+		s.playSoundOnce();
 	}
 
 	public abstract boolean checkCollision(Rectangle background);

@@ -28,7 +28,6 @@ public class Sound  // Holds one audio file
 
 	public void playSound() {
 		song.loop(); // Play
-		System.out.println("sound playing");
 	}
 
 	public void stopSound() {
@@ -57,6 +56,10 @@ public class Sound  // Holds one audio file
 				CurrentSong = 4;
 				break;
 			case 4:
+				FileName = "8-BitFriday.wav";
+				CurrentSong = 5;
+				break;
+			case 5:
 				FileName = "Tetris-TypeA.wav";
 				CurrentSong = 1;
 				break;
